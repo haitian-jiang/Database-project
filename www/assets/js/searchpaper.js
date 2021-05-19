@@ -32,7 +32,7 @@ function listener_model()
 }
  */
 $(function(){
-	$("#deviceprop1_inquire").ajaxForm(function(response_text)	{
+	$("#search_paper_inquire").ajaxForm(function(response_text)	{
 	//	alert(response_text);
 		refresh_main_table();
 		if(response_text == "PC404")
@@ -84,8 +84,6 @@ function deviceprop1_write_table(m){
 		tr[i] = document.createElement("tr");
 		num = document.createElement("td");
 		num.innerHTML = i;
-		id = document.createElement("td");
-		id.innerHTML = main_json[i].id;
 		id.setAttribute('id',"paper_id");
 		paper_name = document.createElement("td");
 		paper_name.innerHTML = main_json[i].paper_name;
@@ -110,7 +108,8 @@ function deviceprop1_write_table(m){
 		jplace.innerHTML = main_json[i].jplace;
 		jplace.setAttribute('id',"jplace");
 		collection = document.createElement("td");
-		collection.innerHTML = '<button class="btn btn-link" style="font-size:12px" onclick="deviceprop1_collect_paper()" >';
+		collection.innerHTML = '<form style = "margin:0px ;display:inline" name="collect_paper" action="">' +
+			'<input type="button" name = "exploit_document" value = "收藏"> </form>'
 		exploit = document.createElement("td");
 		exploit.innerHTML = '<input type="checkbox" name = "exploit_document">';
 		tab.appendChild(tr[i]);
@@ -126,10 +125,6 @@ function deviceprop1_write_table(m){
 		tr[i].appendChild(collection);
 		tr[i].appendChild(exploit);
 	}
-}
-
-function deviceprop1_collect_paper() {
-	alert("Successfully collect the paper !!!")
 }
 
 /*

@@ -110,7 +110,8 @@ function deviceprop1_write_table(m){
 		jplace.innerHTML = main_json[i].jplace;
 		jplace.setAttribute('id',"jplace");
 		collection = document.createElement("td");
-		collection.innerHTML = '<button class="btn btn-link" style="font-size:12px" onclick="deviceprop1_collect_paper()" >';
+		collection.innerHTML = '<form style = "margin:0px ;display:inline" name="collect_paper" action="">' +
+			'<input type="button" name = "exploit_document" value = "收藏"> </form>';
 		exploit = document.createElement("td");
 		exploit.innerHTML = '<input type="checkbox" name = "exploit_document">';
 		tab.appendChild(tr[i]);
