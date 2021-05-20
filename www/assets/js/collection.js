@@ -31,8 +31,9 @@ function listener_model()
 		$("#input_model").hide();
 }
  */
+
 $(function(){
-	$("#deviceprop1_inquire").ajaxForm(function(response_text)	{
+	$("#collection_inquire").ajaxForm(function(response_text)	{
 	//	alert(response_text);
 		refresh_main_table();
 		if(response_text == "PC404")
@@ -84,9 +85,6 @@ function deviceprop1_write_table(m){
 		tr[i] = document.createElement("tr");
 		num = document.createElement("td");
 		num.innerHTML = i;
-		id = document.createElement("td");
-		id.innerHTML = main_json[i].id;
-		id.setAttribute('id',"paper_id");
 		paper_name = document.createElement("td");
 		paper_name.innerHTML = main_json[i].paper_name;
 		paper_name.setAttribute('id',"paper_name");

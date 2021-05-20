@@ -16,7 +16,7 @@ $(function(){
 		var raw_json = response_text;
 		var pinfo_json = JSON.parse(raw_json);
 		$("#paper_name").val(pinfo_json.paper_name.text());
-		$("#author.value").val(pinfo_json.author.text());
+		$("#author").val(pinfo_json.author.text());
 		$("#publish_date").val(pinfo_json.publish_date.text());
 		$("#jname").val(pinfo_json.jname.text());
 		$("#institution").val(pinfo_json.institution.text());

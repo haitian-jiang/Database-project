@@ -84,34 +84,34 @@ function deviceprop1_write_table(m){
 		tr[i] = document.createElement("tr");
 		num = document.createElement("td");
 		num.innerHTML = i;
-		id.setAttribute('id',"paper_id");
+//		id.setAttribute('id',"paper_id");
 		paper_name = document.createElement("td");
 		paper_name.innerHTML = main_json[i].paper_name;
-		paper_name.setAttribute('id',"paper_name");
+//		paper_name.setAttribute('id',"paper_name");
 		author = document.createElement("td");
 		author.innerHTML = main_json[i].author.sort();
-		author.setAttribute('id',"author");
+//		author.setAttribute('id',"author");
 		publish_date = document.createElement("td");
 		publish_date.innerHTML = main_json[i].publish_date;
-		publish_date.setAttribute('id',"publish_date");
+//		publish_date.setAttribute('id',"publish_date");
 		jname = document.createElement("td");
 		jname.innerHTML = main_json[i].jname;
-		jname.setAttribute('id',"jname");
+//		jname.setAttribute('id',"jname");
 		institution = document.createElement("td");
 		institution.innerHTML = main_json[i].institution;
-		institution.setAttribute('id',"institution");
+//		institution.setAttribute('id',"institution");
 		keywords = document.createElement("td");
 		keywords.innerHTML = main_json[i].keywords.sort();
-		jtime = document.createElement("td");
+//		jtime = document.createElement("td");
 		jtime.innerHTML = main_json[i].jtime;
-		jplace = document.createElement("td");
+//		jplace = document.createElement("td");
 		jplace.innerHTML = main_json[i].jplace;
-		jplace.setAttribute('id',"jplace");
+//		jplace.setAttribute('id',"jplace");
 		collection = document.createElement("td");
-		collection.innerHTML = '<form style = "margin:0px ;display:inline" name="collect_paper" action="">' +
-			'<input type="button" name = "exploit_document" value = "收藏"> </form>'
+		collection.innerHTML = '<button id = "colloect_paper"><span hidden>' + main_json[i].id
+			'</span> </button>'
 		exploit = document.createElement("td");
-		exploit.innerHTML = '<input type="checkbox" name = "exploit_document">';
+		exploit.innerHTML = '<input type="checkbox" id = "exploit_document">';
 		tab.appendChild(tr[i]);
 		tr[i].appendChild(num);
 		tr[i].appendChild(paper_name);
