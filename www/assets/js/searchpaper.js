@@ -108,7 +108,7 @@ function deviceprop1_write_table(m){
 		jplace.innerHTML = main_json[i].jplace;
 //		jplace.setAttribute('id',"jplace");
 		collection = document.createElement("td");
-		collection.innerHTML = '<button id = "colloect_paper"><span hidden>' + main_json[i].id
+		collection.innerHTML = '<button id = "colloect_paper"><span hidden>' + main_json[i].id +
 			'</span> </button>'
 		exploit = document.createElement("td");
 		exploit.innerHTML = '<input type="checkbox" id = "exploit_document">';
