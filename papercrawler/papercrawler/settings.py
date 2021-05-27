@@ -14,10 +14,10 @@ NEWSPIDER_MODULE = 'papercrawler.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'papercrawler (+http://www.yourdomain.com)'
+USER_AGENT = '(Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -86,3 +86,16 @@ ROBOTSTXT_OBEY = True
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+
+AUTOUNIT_ENABLED = True
+
+SPIDER_MIDDLEWARES = {
+    # 'papercrawler.middlewares.RandomUserAgentMiddleware': 200,
+    # 'scrapy_fake_useragent.middleware.RandomUserAgentMiddleware': 400,
+    'scrapy_autounit.AutounitMiddleware': 950
+}
+
+CONCURRENT_REQUESTS = 8
+DOWNLOAD_DELAY = 0.1
+CONCURRENT_REQUESTS_PER_DOMAIN = 4
