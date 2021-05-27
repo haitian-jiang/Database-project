@@ -1,2 +1,4 @@
 .DS_Store
 www/connect.php
+autounit/
+__pycache__/
