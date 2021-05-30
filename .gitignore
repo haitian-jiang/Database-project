@@ -2,3 +2,4 @@
 www/connect.php
 autounit/
 __pycache__/
+.ipynb_checkpoints/
