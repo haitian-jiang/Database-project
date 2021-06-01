@@ -3,30 +3,27 @@ import time
 import json
 from scrapy import Spider
 from scrapy.http import Request
-
 from papercrawler.items import PapercrawlerItem
-# from papercrawler.loader import FirmwareLoader
-
 
 
 class PageSpider(Spider):
     name = "page"
     allowed_domains = ["sciencedirect.com"]
     start_urls = [
-        "https://www.sciencedirect.com/science/article/abs/pii/S0957417405000059",
-        "https://www.sciencedirect.com/science/article/abs/pii/S0377221715004208",
-        "https://www.sciencedirect.com/science/article/abs/pii/S0957417411006749",
-        "https://www.sciencedirect.com/science/article/abs/pii/S0957417414005119",
-        "https://www.sciencedirect.com/science/article/abs/pii/S0950705111001353",
-        "https://www.sciencedirect.com/science/article/abs/pii/S0957417408002996",
-        "https://www.sciencedirect.com/science/article/abs/pii/S0378426604001050", 
+#         "https://www.sciencedirect.com/science/article/abs/pii/S0957417405000059",
+#         "https://www.sciencedirect.com/science/article/abs/pii/S0377221715004208",
+#         "https://www.sciencedirect.com/science/article/abs/pii/S0957417411006749",
+#         "https://www.sciencedirect.com/science/article/abs/pii/S0957417414005119",
+#         "https://www.sciencedirect.com/science/article/abs/pii/S0950705111001353",
+#         "https://www.sciencedirect.com/science/article/abs/pii/S0957417408002996",
+#         "https://www.sciencedirect.com/science/article/abs/pii/S0378426604001050", 
         "https://www.sciencedirect.com/science/article/abs/pii/S0305054899001495",  # single author without tag
         "https://www.sciencedirect.com/science/article/abs/pii/S2215036621000729",  # single author with tag
         "https://www.sciencedirect.com/science/article/abs/pii/S095741740600217X",  # mutiple author single affiliation
         "https://www.sciencedirect.com/science/article/abs/pii/S0048733317300422",  # multiple author mutiple affiliation
-        "https://www.sciencedirect.com/science/article/pii/S2215036621000845"  # multiple author mutiple affiliation
+#         "https://www.sciencedirect.com/science/article/pii/S2215036621000845"  # multiple author mutiple affiliation
 #         "https://www.sciencedirect.com/science/article/abs/pii/S0002929721001877",  # 不行
-        "https://www.sciencedirect.com/science/article/pii/S2212671614001024"
+        # "https://www.sciencedirect.com/science/article/pii/S2212671614001024"
     ]
 
     def parse(self, response):
@@ -74,6 +71,8 @@ class PageSpider(Spider):
                 elif i["$$"][0]["#name"] == "label":
                     label = i["$$"][0]["_"]
                     affiliations[label] = i["$$"][1]["_"]
+        if [] in authors.values() and "none" not in affiliations.keys():
+            return
 
         item = PapercrawlerItem()
         item["journal"] = journal
@@ -85,3 +84,7 @@ class PageSpider(Spider):
         item["authors"] = authors
         item["affiliations"] = affiliations
         yield item
+
+
+        # print("\n\n\n", journal, title, keywords, place, available_date, journal_date, authors, affiliations, sep="\n", end="\n\n\n\n")
+        
