@@ -6,27 +6,24 @@ from scrapy.http import Request
 from papercrawler.items import PapercrawlerItem
 
 
-class PageSpider(Spider):
-    name = "page"
+class GlobalSpider(Spider):
+    name = "global"
     allowed_domains = ["sciencedirect.com"]
-    start_urls = [
-#         "https://www.sciencedirect.com/science/article/abs/pii/S0957417405000059",
-#         "https://www.sciencedirect.com/science/article/abs/pii/S0377221715004208",
-#         "https://www.sciencedirect.com/science/article/abs/pii/S0957417411006749",
-#         "https://www.sciencedirect.com/science/article/abs/pii/S0957417414005119",
-#         "https://www.sciencedirect.com/science/article/abs/pii/S0950705111001353",
-#         "https://www.sciencedirect.com/science/article/abs/pii/S0957417408002996",
-#         "https://www.sciencedirect.com/science/article/abs/pii/S0378426604001050", 
-        "https://www.sciencedirect.com/science/article/abs/pii/S0305054899001495",  # single author without tag
-        "https://www.sciencedirect.com/science/article/abs/pii/S2215036621000729",  # single author with tag
-        "https://www.sciencedirect.com/science/article/abs/pii/S095741740600217X",  # mutiple author single affiliation
-        "https://www.sciencedirect.com/science/article/abs/pii/S0048733317300422",  # multiple author mutiple affiliation
-#         "https://www.sciencedirect.com/science/article/pii/S2215036621000845"  # multiple author mutiple affiliation
-#         "https://www.sciencedirect.com/science/article/abs/pii/S0002929721001877",  # 不行
-        # "https://www.sciencedirect.com/science/article/pii/S2212671614001024"
-    ]
+    start_urls = [f"https://www.sciencedirect.com/browse/journals-and-books?page={i}&contentType=JL&subject=computer-science" for i in range(3, 4)]
 
     def parse(self, response):
+        journals = response.xpath("//a[@class='anchor js-publication-title']//@href").getall()
+        for journal in journals:
+            for volume in range(20, 21):
+                yield Request(url=f"https://www.sciencedirect.com{journal}/vol/{volume}/suppl/C", callback=self.parse_journal)
+            
+    def parse_journal(self, response):
+        articles = response.xpath("//a[@class='anchor article-content-title u-margin-xs-top u-margin-s-bottom']//@href").getall()
+        articles = articles[1:]
+        for article in articles:
+            yield Request(url="https://www.sciencedirect.com"+article, callback=self.parse_article)
+
+    def parse_article(self, response):
         # basic information
         journal = response.xpath("//a[@class='publication-title-link']/text()").extract_first()
         if journal is None:
@@ -84,7 +81,3 @@ class PageSpider(Spider):
         item["authors"] = authors
         item["affiliations"] = affiliations
         yield item
-
-
-        # print("\n\n\n", journal, title, keywords, place, available_date, journal_date, authors, affiliations, sep="\n", end="\n\n\n\n")
-        
