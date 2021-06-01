@@ -7,6 +7,11 @@ import scrapy
 
 
 class PapercrawlerItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+    journal = scrapy.Field()
+    title = scrapy.Field()
+    keywords = scrapy.Field()
+    place = scrapy.Field()
+    available_date = scrapy.Field()
+    journal_date = scrapy.Field()
+    authors = scrapy.Field()
+    affiliations = scrapy.Field()
