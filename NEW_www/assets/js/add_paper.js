@@ -17,7 +17,6 @@ function AddRow(obj = ""){
 		del.innerHTML = '<button class="btn btn-default" onclick="deleteCurrentRow(this)">删除作者</button>';
 		let author = document.createElement("td");
 		author.innerHTML = '<input class="form-control input-rounded" type="text" name="author" value = "' + obj +'" required="required">';
-
 		let institution = document.createElement("td");
 		institution.innerHTML = '<input class="form-control input-rounded" type="text" name="institution">'
 		tab.appendChild(tr);

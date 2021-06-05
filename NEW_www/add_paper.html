@@ -27,6 +27,7 @@
     <link href="assets/css/lib/helper.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
 </head>
+
 <body>
        <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
         </div>
@@ -52,7 +53,7 @@
                                     <div class="dropdown-content-body">
                                         <ul>
                                             <li>
-                                                <a href="app-profilehtml">
+                                                <a href="index.html">
                                                     <i class="ti-user"></i>
                                                     <span>个人资料</span>
                                                 </a>
@@ -90,7 +91,7 @@
                         <div class="page-header">
                             <div class="page-title">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index1.html">Dashboard</a></li>
+                                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
                                     <li class="breadcrumb-item active">文献信息导入</li>
                                 </ol>
                             </div>
@@ -102,11 +103,7 @@
 
                 <section id="main-content">
                     <!-- PDF解析器存放-->
-<<<<<<< HEAD
-                    <form class="form-inline" id="upfile" action="" method="post">
-=======
-                    <form class="form-inline" name="upfile" action="pdf.php" method="post">
->>>>>>> 77ae3acb1c10ecb8c52406034994a9546d1fd90c
+                    <form class="form-inline" id="upfile" action="pdf.php"  method="post">
                         <div class="input-group input-group-rounded">
                             <input class="form-control input-flat col-lg-12" placeholder="请上传一份PDF文献" type="file" name="upload_file" multiple>
                             <input class="btn btn-primary btn-group-right" type="submit" value="上传文件并解析信息">
@@ -139,8 +136,7 @@
                                         发表日期：<input class="form-control input-rounded" type="text" id="publish_date" placeholder="八位数字，如20190101">
                                         期刊/会议：<input class="form-control input-rounded" type="text" id="pname">
                                         期刊发行日期：<input class="form-control input-rounded" type="text" id="jtime" placeholder="八位数字，如20190101">
-                                        期刊版号/会议地点：<input class="fom-control input-rounded" type="text" id="jplace">
-                                    <p/>
+                                        期刊版号/会议地点：<input class="form-control input-rounded" type="text" id="jplace">
                                     <button type="submit" class="btn btn-default" id=“devicepropman_add”>确认添加</button>
                                     <button type="reset" class="btn btn-default">清空</button>
                                 </form>
@@ -186,7 +182,7 @@
     <script src="assets/js/lib/data-table/buttons.print.min.js"></script>
     <script src="assets/js/lib/data-table/datatables-init.js"></script>
     </script>-->
-       <script src="assets/js/add_paper.js"></script>
+    <script src="assets/js/add_paper.js"></script>
     <script src="assets/js/write_sidebar1.js"></script>
 
 </body>

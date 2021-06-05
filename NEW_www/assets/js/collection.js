@@ -68,9 +68,6 @@ function deviceprop1_write_table(m){
 	}
 }
 
-function deviceprop1_collect_paper() {
-	alert("Successfully collect the paper !!!")
-}
 
 function getpapers()
 {

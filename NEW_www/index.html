@@ -75,6 +75,9 @@
               </div>
             </div>
             <div class="float-right">
+              <div class="dropdown dib">
+              </div>
+              <br></br>
             </div>
           </div>
         </div>
@@ -125,29 +128,32 @@
                         </div>
                       </div>
                       <div class="col-lg-8">
-                        <span class="user-profile-name" id="user-avatar"> 欢迎您
-                          <i class="ti-angle-down f-s-10"></i>
-                        </span>
+                        <h4>
+                          <span class="user-profile-name" id="user-avatar"> 欢迎您
+                            <i class="ti-angle-down f-s-10"></i>
+                          </span>
                           <a href="#">
                             <i class="ti-power-off"></i>
                             <span>注销</span>
                           </a>
-                        <div class="user-send-message">
-                          <button class="btn btn-primary btn-addon" onclick="window.location.href = 'collection.html' "type="button">
-                            <i class="ti-email"></i>查看您的收藏夹</button>
+                        </h4>
+                        <div style="display: flex; justify-content: flex-start; flex-wrap: wrap;">
+                        <div class = "col-lg-6">
+                          <div class = "dropdown-content-list">
+                            <ul>
+                              <li ><a href = 'collection.html'><i class="ti-email"></i> 收藏夹</a></li>
+                              <li ><a href = "searchpaper.html"><i class="ti-dropbox"></i> 搜索文献</a></li>
+                              <li ><a href = 'add_paper.html'><i class="ti-dropbox"></i> 上传文献</a></li>
+                            </ul>
+                          </div>
                         </div>
-                        <div class="user-send-message">
-                          <button class="btn btn-primary btn-addon" onclick="window.location.href = 'collection.html' "type="button">
-                            <i class="ti-email"></i>搜索新文献</button>
+                        <div class = "col-lg-6">
+                          <h6>
+                          数据库共收录 1200 位作者，全球 127 机构，关于 1801 主题，源于 1890 不同期刊的 12370 文献
+                          <br></br>
+                          Standing on the shoulders of giants
+                          </h6>
                         </div>
-                        <div class="user-send-message">
-                          <button class="btn btn-primary btn-addon" onclick="window.location.href = 'collection.html' "type="button">
-                            <i class="ti-email"></i>上传文献</button>
-                        </div>
-                      </div>
-
-                      <div>
-
                       </div>
                     </div>
                   </div>
@@ -156,8 +162,62 @@
             </div>
           </div>
           <!-- 下面是两个统计功能 -->
+            <!-- /# row -->
+          <div class="row" STYLE="width: 100%">
+            <div class="col-lg-6">
+              <div class="card">
+                <div class="card-title">
+                  <h4>发表文献最多的作者</h4>
+                  <h5>点击作者搜索文献</h5>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                      <tr>
+                        <th>Author_Name</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                        <td></td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /# column -->
+            <div class="col-lg-6">
+              <div class="card">
+                <div class="card-title">
+                  <h4>发表论文数最多的机构 </h4>
+                  <h5>点击机构查看相关文献 </h5>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-hover ">
+                      <thead>
+                      <tr>
+                        <th>paper_Name</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                        <td></td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /# card -->
+          </div>
+            <!-- /# column -->
           <!-- /# row -->
-          <div class="row">
+          <div class="row" STYLE="width: 100%">
             <div class="col-lg-6">
               <div class="card">
                 <div class="card-title">
@@ -209,7 +269,10 @@
               </div>
               <!-- /# card -->
             </div>
-            <!-- /# column -->
+          </div>
+          <!-- /# column -->
+
+
           <div class="row">
             <div class="col-lg-12">
               <div class="footer">
@@ -221,12 +284,6 @@
       </div>
     </div>
   </div>
-
-
-
-
-
-
 
     <!-- Common -->
     <script src="assets/js/lib/jquery.min.js"></script>

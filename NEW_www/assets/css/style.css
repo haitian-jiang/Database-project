@@ -768,6 +768,12 @@ a.dt-button.active:not(.disabled) {
   opacity: 1!important;
   color: #5873fe;
 }
+.dropdown-content-list li {
+  top: 5px;
+  padding: 10px;
+  border-top: 1px solid #eef5f9;
+  color: #5873fe;
+}
 .dropdown-content-body li {
   padding: 15px;
   border-top: 1px solid #eef5f9;
