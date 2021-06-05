@@ -41,20 +41,24 @@ function deviceprop1_write_table(m){
 
 		//论文题目
 		paper_name = document.createElement("td");
-		paper_name.innerHTML = "<a herf = '#' onclick='show_keywords(main_json[i].id)'>"+main_json[i].paper_name+"</a>";
+		paper_name.innerHTML = "<a herf = '#' onclick='show_keywords("+main_json[i].id+")'>"+main_json[i].paper_name+"</a>";
 
 		//作者(需要大改)
 		author = document.createElement("td");
 		//添加作者的个人信息
-		author.innerHTML = main_json[i].author.sort();
+		author_lists = main_json[i].author.records;
+		Auhtorlen = author_lists.length;
+		for(var j = 0; j <= Auhtorlen ; j++)
+			author.innerHTML = author.innerHTML + "<a herf = '', onclick=author_info("
+				+author_lists[j]+","+main_json[i].id+")>"+ author_lists[j] + "</a> ;";
 		//发行时间
 		publish_date = document.createElement("td");
 		publish_date.innerHTML = main_json[i].publish_date;
 		//期刊
 		jname = document.createElement("td");
-		jname.innerHTML = "<a herf = '#' onclick='show_jinfo(main_json[i].id)'>" + main_json[i].jname + "</a>";
+		jname.innerHTML = "<a herf = '#' onclick='show_jinfo("+main_json[i].id+")'>" + main_json[i].jname + "</a>";
 		collection = document.createElement("td");
-		collection.innerHTML = '<button onclick="collect_paper(main_json[i].id)"</button>'
+		collection.innerHTML = '<button onclick="collect_paper('+main_json[i].id+')"</button>'
 		exploit = document.createElement("td");
 		exploit.innerHTML = '<input type="checkbox" name = "exploit_document"/>';
 		tab.appendChild(tr[i]);
@@ -74,9 +78,7 @@ function deviceprop1_show_details(x)
 }
  */
 function show_keywords(obj){
-	var id = obj.text();
-	$.post("", { paper_id:id} ,function(data) {
-
+	$.post("", { paper_id:obj} ,function(data) {
 		var raw_json = data;
 		var pinfo_json = JSON.parse(raw_json);
 		keywords_lists = pinfo_json.keywords.records;
@@ -92,10 +94,36 @@ function show_keywords(obj){
 }
 
 function show_jinfo(obj){
-	var id = obj.text();
-	$.post("", { paper_id:id} ,function(data) {
+	$.post("", { paper_id:obj} ,function(data) {
 		var raw_json = data;
 		var pinfo_json = JSON.parse(raw_json);
 		alert("期刊发行时间:"+ pinfo_json.jdate + "地点/版号："+pinfo_json.jplace);
+	})
+}
+
+function author_info(author,id){
+	$.post("", { paper_id:id, author_name:author} ,function(data) {
+		var raw_json = data;
+		var pinfo_json = JSON.parse(raw_json);
+		institution = pinfo_json.institution.records;
+		t = institution.length;
+		ins_string = '';
+		if (t != 0){
+			for(var i = 0; i != t;i++){
+				ins_string = ins_string + institution[i] + ';';
+			}
+		}
+		alert("作者所在单位"+ins_string);
+	})
+}
+
+function collect_paper(obj) {
+	$.post("", { paper_id:obj} ,function(status) {
+		if (status == 1) {
+			alert("您已成功收藏该论文");
+		}
+		else {
+			alert("对不起，添加失败");
+		}
 	})
 }

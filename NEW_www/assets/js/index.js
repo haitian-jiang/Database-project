@@ -1,16 +1,9 @@
 //这边是想要去一开始就拉文献
-function getpapers() {
-	var url = ''; // 放php的地方
-	var pre_url = document.referrer;
-	var pars = '&url='+pre_url;
-	var myAjax = new Ajax.Request(url,{method: 'get', parameters: pars} )
-};
-
 var main_json = [{"total_num" : 0}];
 
-$(function(){
-	$().ajaxForm(function(response_text)	{
-		//	alert(response_text)
+window.onload = function () {
+	$.post("",{},function(response_text){
+		refresh_main_table();
 		if(response_text == "PC404")
 			main_json = [{"total_num": 0}];
 		else{
@@ -22,8 +15,9 @@ $(function(){
 		}
 		deviceprop1_show_total();
 		deviceprop1_write_table(main_json[0].total_num);
-	});
-});
+	})
+}
+
 
 var tab =document.getElementById("deviceprop1_main_table");
 var tr = new Array();
