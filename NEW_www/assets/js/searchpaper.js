@@ -44,21 +44,21 @@ function deviceprop1_write_table(m){
 			'<button class="btn btn-default" style = "height: 20px; width: 100%; font-weight: bold" onclick="collect_paper('+main_json[i].id+')"></button>';
 		//论文题目
 		paper_name = document.createElement("td");
-		paper_name.innerHTML = "<a herf = '#' onclick='show_keywords("+main_json[i].id+")'>"+main_json[i].paper_name+"</a>";
+		paper_name.innerHTML = "<a style = l1 herf = '#' onclick='show_keywords("+main_json[i].id+")'>"+main_json[i].paper_name+"</a>";
 		//作者(需要大改)
 		author = document.createElement("td");
 		//添加作者的个人信息
 		author_lists = main_json[i].author;
 		Auhtorlen = author_lists.length;
 		for(var j = 0 ; j != Auhtorlen ; j++){
-			author.innerHTML = author.innerHTML + "<a herf = '', onclick=\"author_info('"+author_lists[j].name+"',"+main_json[i].id+")\">"+ author_lists[j].name + "</a> ;";
+			author.innerHTML = author.innerHTML + "<a style= l1 herf = '', onclick=\"author_info('"+author_lists[j].name+"',"+main_json[i].id+")\">"+ author_lists[j].name + "</a> ;";
 		//发行时间
 		}
 		publish_date = document.createElement("td");
 		publish_date.innerHTML = main_json[i].publish_date;
 		//期刊
 		jname = document.createElement("td");
-		jname.innerHTML = "<a herf = '#' onclick='show_jinfo("+main_json[i].id+")'>" + main_json[i].jname + "</a>";
+		jname.innerHTML = "<a style = l1 herf = '#' onclick='show_jinfo("+main_json[i].id+")'>" + main_json[i].jname + "</a>";
 		tab.appendChild(tr[i]);
 		tr[i].appendChild(num);
 		tr[i].appendChild(paper_name);
@@ -78,7 +78,7 @@ function show_keywords(obj){
 				key_string = key_string + pinfo_json[i].keyword + '; ';
 			}
 		}
-		alert("related subjects:"+key_string);
+		alert("related subjects:\n"+key_string);
 	})
 }
 
@@ -87,7 +87,7 @@ function show_jinfo(obj){
 		var raw_json = data;
 		var pinfo_json = JSON.parse(raw_json);
 		var i = 0;
-		alert("期刊发行时间:"+ pinfo_json[0].jdate + "地点/版号："+pinfo_json[0].jplace);
+		alert("期刊发行时间如下：\n"+ pinfo_json[0].jtime[0].jtime.substring(0,10) + "\n地点/版号如下：\n"+pinfo_json[0].jplace[0].jplace);
 	})
 }
 
@@ -96,7 +96,7 @@ function author_info(author,id){
 		var raw_json = data;
 		var pinfo_json = JSON.parse(raw_json);
 		institution = pinfo_json[0].institution;
-		alert("作者所在单位"+institution);
+		alert("作者所在单位如下：\n"+institution);
 	})
 }
 
