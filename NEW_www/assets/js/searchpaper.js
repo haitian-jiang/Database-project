@@ -38,7 +38,6 @@ function deviceprop1_write_table(m){
 		tr.setAttribute('style="font-size: 16px; font-family:"Times New Roman", "华文宋体"; color: #0c0c0c"')
 		num = document.createElement("td");
 		num.innerHTML = i;
-
 		//论文题目
 		paper_name = document.createElement("td");
 		paper_name.innerHTML = "<a herf = '#' onclick='show_keywords("+main_json[i].id+")'>"+main_json[i].paper_name+"</a>";
@@ -46,7 +45,7 @@ function deviceprop1_write_table(m){
 		//作者(需要大改)
 		author = document.createElement("td");
 		//添加作者的个人信息
-		author_lists = main_json[i].author.records;
+		author_lists = main_json[i].author;
 		Auhtorlen = author_lists.length;
 		for(var j = 0; j <= Auhtorlen ; j++)
 			author.innerHTML = author.innerHTML + "<a herf = '', onclick=author_info("
@@ -81,8 +80,8 @@ function show_keywords(obj){
 	$.post("", { paper_id:obj} ,function(data) {
 		var raw_json = data;
 		var pinfo_json = JSON.parse(raw_json);
-		keywords_lists = pinfo_json.keywords.records;
-		t = pinfo_json.keywords.records.length;
+		keywords_lists = pinfo_json.keywords;
+		t = pinfo_json.keywords.length;
 		key_string = '';
 		if (t != 0){
 			for(var i = 0; i != t;i++){
@@ -105,15 +104,8 @@ function author_info(author,id){
 	$.post("", { paper_id:id, author_name:author} ,function(data) {
 		var raw_json = data;
 		var pinfo_json = JSON.parse(raw_json);
-		institution = pinfo_json.institution.records;
-		t = institution.length;
-		ins_string = '';
-		if (t != 0){
-			for(var i = 0; i != t;i++){
-				ins_string = ins_string + institution[i] + ';';
-			}
-		}
-		alert("作者所在单位"+ins_string);
+		institution = pinfo_json.institution;
+		alert("作者所在单位"+institution);
 	})
 }
 
