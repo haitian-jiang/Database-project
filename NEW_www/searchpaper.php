@@ -10,7 +10,7 @@
     else{
         switch ($method) {
             case "paper_name"://用户按照论文名称，即数据库中paper表的name查询
-                $sql = "SELECT * FROM paper WHERE name = '$usr_input'";
+                $sql = "SELECT * FROM paper WHERE name LIKE '$usr_input'";
                 $res = $conn->query($sql);
                 $row = $res->fetch_all(MYSQLI_ASSOC);
                 if($row == NULL){
@@ -18,26 +18,26 @@
                 }
                 else{
                     $paper_amount = count($row);
-                    for ($i=0; $i < $paper_amount; $i++) { 
-                        $id = $row[$i]['id'];
-                        $paperinfosql = "SELECT paper.name,author.name,paper.available_date,paper.jname,author.institution,keyword.keyword,paper.jtime,paper.jplace FROM paper inner join keyword on paper.id=keyword.pid inner join author on paper.id=author.pid WHERE id = $pid";
+                    for ($i=0; $i < $paper_amount; $i++){ 
+                        $pid = $row[$i]['id'];
+                        $paperinfosql = "SELECT name,available_date,jname FROM paper WHERE id = '$pid'";
                         $paperinfores = $conn->query($paperinfosql);
                         $paperinforow = $paperinfores->fetch_object();
-                        $row[$i]['name'] = $paperinforow->paper.name;
-                        $row[$i]['author'] = $paperinforow->author.name;
-                        $row[$i]['available_date'] = $paperinforow->paper.puclish_date;
-                        $row[$i]['jname'] = $paperinforow->paper.jname;
-                        $row[$i]['institution'] = $paperinforow->author.institution;
-                        $row[$i]['keyword'] = $paperinforow->keyword.keyword;
-                        $row[$i]['jtime'] = $paperinforow->paper.jtime;
-                        $row[$i]['jplace'] = $paperinforow->paper.jplace;
+                        $row[$i]['id'] = $pid;
+                        $row[$i]['paper_name'] = $paperinforow->name;
+                        $authorinfosql = "SELECT name FROM author WHERE pid = '$pid'";
+                        $authorinfores = $conn->query($authorinfosql);
+                        $authorinforow = $authorinfores->fetch_object();
+                        $row[$i]['author'] = $authorinforow->name;
+                        $row[$i]['publish_date'] = $paperinforow->available_date;
+                        $row[$i]['jname'] = $paperinforow->jname;
                     }
                     echo json_encode($row);
                 }
                 break;
 
             case "author"://用户按照论文作者，即数据库中author表的name查询
-                $sql = "SELECT * FROM author WHERE name = '$usr_input'";
+                $sql = "SELECT pid FROM author WHERE name LIKE '$usr_input'";
                 $res = $conn->query($sql);
                 $row = $res->fetch_all(MYSQLI_ASSOC);
                 if($row == NULL){
@@ -47,24 +47,30 @@
                     $paper_amount = count($row);
                     for ($i=0; $i < $paper_amount; $i++) { 
                         $pid = $row[$i]['pid'];
-                        $paperinfosql = "SELECT * FROM paper inner join keyword on paper.id=keyword.pid inner join author on paper.id=author.pid WHERE id = $pid";
+                        $paperinfosql = "SELECT name,available_date,jname FROM paper WHERE id = '$pid'";
                         $paperinfores = $conn->query($paperinfosql);
                         $paperinforow = $paperinfores->fetch_object();
-                        $row[$i]['name'] = $paperinforow->paper.name;
-                        $row[$i]['author'] = $paperinforow->author.name;
+                        $row[$i]['id'] = $pid;
+                        $row[$i]['paper_name'] = $paperinforow->name;
+                        $result = mysql_query("SELECT name FROM author WHERE pid = '$pid'");
+                        $results = array();
+                        while ($rowtemp = mysql_fetch_assoc($result)) {
+                            $results[] = $rowtemp;
+                        }
+                        //$authorinfosql = "SELECT name FROM author WHERE pid = '$pid'";
+                        //$authorinfores = $conn->query($authorinfosql);
+                        //$authorinforow = $authorinfores->fetch_object();
+                        //$row[$i]['author'] = array_values($authorinforow);
+                        $row[$i]['author'] = $results;
                         $row[$i]['available_date'] = $paperinforow->available_date;
                         $row[$i]['jname'] = $paperinforow->jname;
-                        $row[$i]['institution'] = $paperinforow->institution;
-                        $row[$i]['keyword'] = $paperinforow->keyword;
-                        $row[$i]['jtime'] = $paperinforow->jtime;
-                        $row[$i]['jplace'] = $paperinforow->jplace;
                     }
                     echo json_encode($row);
                 }
                 break;
 
             case "institution"://用户按照单位，即数据库中author表的institution查询
-                $sql = "SELECT * FROM author WHERE institution = '$usr_input'";
+                $sql = "SELECT * FROM author WHERE institution LIKE '$usr_input'";
                 $res = $conn->query($sql);
                 $row = $res->fetch_all(MYSQLI_ASSOC);
                 if($row == NULL){
@@ -74,24 +80,24 @@
                     $paper_amount = count($row);
                     for ($i=0; $i < $paper_amount; $i++) { 
                         $pid = $row[$i]['pid'];
-                        $paperinfosql = "SELECT * FROM paper inner join keyword on paper.id=keyword.pid inner join author on paper.id=author.pid WHERE id = $pid";
+                        $paperinfosql = "SELECT name,available_date,jname FROM paper WHERE id = '$pid'";
                         $paperinfores = $conn->query($paperinfosql);
                         $paperinforow = $paperinfores->fetch_object();
+                        $row[$i]['id'] = $pid;
                         $row[$i]['name'] = $paperinforow->name;
-                        $row[$i]['author'] = $paperinforow->author;
+                        $authorinfosql = "SELECT name FROM author WHERE pid = '$pid'";
+                        $authorinfores = $conn->query($authorinfosql);
+                        $authorinforow = $authorinfores->fetch_object();
+                        $row[$i]['author'] = $authorinforow->name;
                         $row[$i]['available_date'] = $paperinforow->available_date;
                         $row[$i]['jname'] = $paperinforow->jname;
-                        $row[$i]['institution'] = $paperinforow->institution;
-                        $row[$i]['keyword'] = $paperinforow->keyword;
-                        $row[$i]['jtime'] = $paperinforow->jtime;
-                        $row[$i]['jplace'] = $paperinforow->jplace;
                     }
                     echo json_encode($row);
                 }
                 break;
 
             case "journal"://用户按照期刊,会议，即数据库中paper表的jname查询
-                $sql = "SELECT * FROM paper WHERE jname = '$usr_input'";
+                $sql = "SELECT * FROM paper WHERE jname LIKE '$usr_input'";
                 $res = $conn->query($sql);
                 $row = $res->fetch_all(MYSQLI_ASSOC);
                 if($row == NULL){
@@ -100,25 +106,25 @@
                 else{
                     $paper_amount = count($row);
                     for ($i=0; $i < $paper_amount; $i++) { 
-                        $pid = $row[$i]['pid'];
-                        $paperinfosql = "SELECT * FROM paper inner join keyword on paper.id=keyword.pid inner join author on paper.id=author.pid WHERE id = $pid";
+                        $pid = $row[$i]['id'];
+                        $paperinfosql = "SELECT name,available_date,jname FROM paper WHERE id = '$pid'";
                         $paperinfores = $conn->query($paperinfosql);
                         $paperinforow = $paperinfores->fetch_object();
+                        $row[$i]['id'] = $pid;
                         $row[$i]['name'] = $paperinforow->name;
-                        $row[$i]['author'] = $paperinforow->author;
+                        $authorinfosql = "SELECT name FROM author WHERE pid = '$pid'";
+                        $authorinfores = $conn->query($authorinfosql);
+                        $authorinforow = $authorinfores->fetch_object();
+                        $row[$i]['author'] = $authorinforow;
                         $row[$i]['available_date'] = $paperinforow->available_date;
                         $row[$i]['jname'] = $paperinforow->jname;
-                        $row[$i]['institution'] = $paperinforow->institution;
-                        $row[$i]['keyword'] = $paperinforow->keyword;
-                        $row[$i]['jtime'] = $paperinforow->jtime;
-                        $row[$i]['jplace'] = $paperinforow->jplace;
                     }
                     echo json_encode($row);
                 }
                 break;
 
-            case "available_date"://用户按照发表日期，即数据库中paper表的available_date查询
-                $sql = "SELECT * FROM author WHERE institution = '$usr_input'";
+            case "publish_date"://用户按照发表日期，即数据库中paper表的available_date查询
+                $sql = "SELECT * FROM paper WHERE available_date LIKE '$usr_input'";
                 $res = $conn->query($sql);
                 $row = $res->fetch_all(MYSQLI_ASSOC);
                 if($row == NULL){
@@ -127,25 +133,25 @@
                 else{
                     $paper_amount = count($row);
                     for ($i=0; $i < $paper_amount; $i++) { 
-                        $pid = $row[$i]['pid'];
-                        $paperinfosql = "SELECT * FROM paper inner join keyword on paper.id=keyword.pid inner join author on paper.id=author.pid WHERE id = $pid";
+                        $pid = $row[$i]['id'];
+                        $paperinfosql = "SELECT name,available_date,jname FROM paper WHERE id = '$pid'";
                         $paperinfores = $conn->query($paperinfosql);
                         $paperinforow = $paperinfores->fetch_object();
+                        $row[$i]['id'] = $pid;
                         $row[$i]['name'] = $paperinforow->name;
-                        $row[$i]['author'] = $paperinforow->author;
+                        $authorinfosql = "SELECT name FROM author WHERE pid = '$pid'";
+                        $authorinfores = $conn->query($authorinfosql);
+                        $authorinforow = $authorinfores->fetch_object();
+                        $row[$i]['author'] = $authorinforow;
                         $row[$i]['available_date'] = $paperinforow->available_date;
                         $row[$i]['jname'] = $paperinforow->jname;
-                        $row[$i]['institution'] = $paperinforow->institution;
-                        $row[$i]['keyword'] = $paperinforow->keyword;
-                        $row[$i]['jtime'] = $paperinforow->jtime;
-                        $row[$i]['jplace'] = $paperinforow->jplace;
                     }
                     echo json_encode($row);
                 }
                 break;
 
             case "keywords"://用户按照关键字，即数据库中keyword表的keyword查询
-                $sql = "SELECT * FROM keyword WHERE keyword = '$usr_input'";
+                $sql = "SELECT * FROM keyword WHERE keyword LIKE '$usr_input'";
                 $res = $conn->query($sql);
                 $row = $res->fetch_all(MYSQLI_ASSOC);
                 if($row == NULL){
@@ -155,18 +161,17 @@
                     $paper_amount = count($row);
                     for ($i=0; $i < $paper_amount; $i++) { 
                         $pid = $row[$i]['pid'];
-                        //$user_id = $row[$i]['user_id']; 
-                        $paperinfosql = "SELECT * FROM paper inner join keyword on paper.id=keyword.pid inner join author on paper.id=author.pid WHERE id = $pid";
+                        $paperinfosql = "SELECT name,available_date,jname FROM paper WHERE id = '$pid'";
                         $paperinfores = $conn->query($paperinfosql);
                         $paperinforow = $paperinfores->fetch_object();
+                        $row[$i]['id'] = $pid;
                         $row[$i]['name'] = $paperinforow->name;
-                        $row[$i]['author'] = $paperinforow->author;
+                        $authorinfosql = "SELECT name FROM author WHERE pid = '$pid'";
+                        $authorinfores = $conn->query($authorinfosql);
+                        $authorinforow = $authorinfores->fetch_object();
+                        $row[$i]['author'] = $authorinforow;
                         $row[$i]['available_date'] = $paperinforow->available_date;
                         $row[$i]['jname'] = $paperinforow->jname;
-                        $row[$i]['institution'] = $paperinforow->institution;
-                        $row[$i]['keyword'] = $paperinforow->keyword;
-                        $row[$i]['jtime'] = $paperinforow->jtime;
-                        $row[$i]['jplace'] = $paperinforow->jplace;
                     }
                     echo json_encode($row);
                 }
