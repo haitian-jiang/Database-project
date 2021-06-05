@@ -32,8 +32,11 @@ if ( ($_FILES["upload_file"]["type"] == "application/pdf")
 
         $pyPATH = "C:\Users\jht20\AppData\Local\Programs\Python\Python37\python.exe";
         exec($pyPATH . " PDFparser.py " . $_FILES["upload_file"]["name"], $output);
-        print_r($output);
-
+        // print_r($output);
+        $separated = implode(";", $output);
+        $f = fopen("output.txt", "w");
+        fwrite($f, $separated);
+        fclose($f);
     }
     
 }else{
