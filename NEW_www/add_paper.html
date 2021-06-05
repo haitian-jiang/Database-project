@@ -102,7 +102,7 @@
 
                 <section id="main-content">
                     <!-- PDF解析器存放-->
-                    <form class="form-inline" name="upfile" action="" method="post">
+                    <form class="form-inline" id="upfile" action="" method="post">
                         <div class="input-group input-group-rounded">
                             <input class="form-control input-flat col-lg-12" placeholder="请上传一份PDF文献" type="file" name="upload_file" multiple>
                             <input class="btn btn-primary btn-group-right" type="submit" value="上传文件并解析信息">
@@ -114,16 +114,30 @@
                             <!-- /# card -->
                             <div class="card">
                                 <form role="form" name="add_paper" id="add_paper" action="" method="post">
-                                        论文题目(必填)：<input class="form-control input-rounded" type="text" name="paper_name" required="required">
-                                        作者(多个作者之间请用”;“隔开)：<input class="form-control input-rounded" type="text" name="author">
-                                        关键字(多个关键字之间请用";"隔开)：<input class="form-control input-rounded" type="text" name="keywords">
-                                        机构：<input class="form-control input-rounded" type="text" name="institution">
-                                        发表日期：<input class="form-control input-rounded" type="text" name="publish_date" placeholder="八位数字，如20190101">
-                                        期刊/会议：<input class="form-control input-rounded" type="text" name="pname">
-                                        期刊发行日期：<input class="form-control input-rounded" type="text" name="jtime" placeholder="八位数字，如20190101">
-                                        期刊版号/会议地点：<input class="form-control input-rounded" type="text" name="jplace">
+                                        论文题目(必填)：
+                                        <input class="form-control input-rounded" type="text" id="paper_name" required="required">
+                                        作者与作者所在机构的信息填写,如果有多个作者，请按下面的button添加栏目！
+                                        <table class="table table-striped table-bordered table-hover" id = 'author-institution'>
+                                        <thead>
+                                            <tr>
+                                                <th style="width:10%"><button class="btn btn-default" onclick="AddRow()">添加作者</button></th>
+                                                <th style="width:40%">作者，一行只填一个，如有多个点击添加作者</th>
+                                                <th style="width:40%">作者所在机构，如果有多个请用";"隔开</th>
+                                            </tr>
+                                            <tr>
+                                                <th> <button class="btn btn-default" onclick="deleteCurrentRow(this)">删除作者 </button> </th>
+                                                <th> <input class="form-control input-rounded" type="text" name="author" required="required"></th>
+                                                <th> <input class="form-control input-rounded" type="text" name="institution"></th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                        关键字(多个关键字之间请用";"隔开)：<input class="form-control input-rounded" type="text" id="keywords">
+                                        发表日期：<input class="form-control input-rounded" type="text" id="publish_date" placeholder="八位数字，如20190101">
+                                        期刊/会议：<input class="form-control input-rounded" type="text" id="pname">
+                                        期刊发行日期：<input class="form-control input-rounded" type="text" id="jtime" placeholder="八位数字，如20190101">
+                                        期刊版号/会议地点：<input class="fom-control input-rounded" type="text" id="jplace">
                                     <p/>
-                                    <button type="submit" class="btn btn-default">确认添加</button>
+                                    <button type="submit" class="btn btn-default" id=“devicepropman_add”>确认添加</button>
                                     <button type="reset" class="btn btn-default">清空</button>
                                 </form>
                             </div>
@@ -168,16 +182,8 @@
     <script src="assets/js/lib/data-table/buttons.print.min.js"></script>
     <script src="assets/js/lib/data-table/datatables-init.js"></script>
     </script>-->
-    <script src="assets/js/add_paper.js"></script>
+       <script src="assets/js/add_paper.js"></script>
     <script src="assets/js/write_sidebar1.js"></script>
 
-
-
-
-
-
-
-
 </body>
-
 </html>
