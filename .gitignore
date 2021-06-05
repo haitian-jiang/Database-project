@@ -5,3 +5,4 @@ pipelines.py
 autounit/
 __pycache__/
 .ipynb_checkpoints/
+~$*
