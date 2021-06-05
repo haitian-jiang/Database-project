@@ -35,7 +35,7 @@ tr[1] = 'abc';
 function deviceprop1_write_table(m){
 	for(var i = 1; i <= m; i++)	{
 		tr[i] = document.createElement("tr");
-		tr.setAttribute('style="font-size: 16px; font-family:"Times New Roman", "华文宋体"; color: #0c0c0c"')
+//		tr.setAttribute('style="font-size: 16px; font-family:"Times New Roman", "华文宋体"; color: #0c0c0c"')
 		num = document.createElement("td");
 		num.innerHTML = i;
 		//论文题目
@@ -47,9 +47,9 @@ function deviceprop1_write_table(m){
 		//添加作者的个人信息
 		author_lists = main_json[i].author;
 		Auhtorlen = author_lists.length;
-		for(var j = 0; j <= Auhtorlen ; j++)
+		for(var j = 0; j != Auhtorlen ; j++)
 			author.innerHTML = author.innerHTML + "<a herf = '', onclick=author_info("
-				+author_lists[j]+","+main_json[i].id+")>"+ author_lists[j] + "</a> ;";
+				+author_lists[j].name+","+main_json[i].id+")>"+ author_lists[j].name + "</a> ;";
 		//发行时间
 		publish_date = document.createElement("td");
 		publish_date.innerHTML = main_json[i].publish_date;
