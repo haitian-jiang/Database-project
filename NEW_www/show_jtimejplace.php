@@ -4,8 +4,12 @@
     include 'connect.php';     //调用数据库连接文件
 
     $pid = $_POST['paper_id'];     //接收前台post值
-    $jinfosql = "SELECT jtime,jpace FROM paper WHERE id = '$pid'";
-    $jinfores = $conn->query($jinfosql);
-    $jinforow = $jinfores->fetch_all(MYSQLI_ASSOC);
-    echo json_encode($jinforow);
+    $jtimesql = "SELECT jtime FROM paper WHERE id = '$pid'";
+    $jtimeres = $conn->query($jtimesql);
+    $jtimerow = $jtimeres->fetch_all(MYSQLI_ASSOC);
+    echo json_encode($jtimerow);
+    $jplacesql = "SELECT jplace FROM paper WHERE id = '$pid'";
+    $jplaceres = $conn->query($jplacesql);
+    $jplacerow = $jplaceres->fetch_all(MYSQLI_ASSOC);
+    echo json_encode($jplacerow);
 ?>
