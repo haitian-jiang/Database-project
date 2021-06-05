@@ -86,6 +86,7 @@ function show_jinfo(obj){
 	$.post("show_jtimejplace.php", { paper_id:obj} ,function(data) {
 		var raw_json = data;
 		var pinfo_json = JSON.parse(raw_json);
+		var i = 0;
 		alert("期刊发行时间:"+ pinfo_json[0].jdate + "地点/版号："+pinfo_json[0].jplace);
 	})
 }
