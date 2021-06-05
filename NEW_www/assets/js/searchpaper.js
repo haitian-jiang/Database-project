@@ -23,7 +23,7 @@ function refresh_main_table(){
 	var tab =document.getElementById("deviceprop1_main_table");
 	var tr=tab.getElementsByTagName("tr");
 	var trLength = tr.length;
-	for(var i = 1; i != trLength; i++){
+	for(var i = trLength-1; i != 0; i--){
 		tab.removeChild(tr[i]);
 	}
 }
