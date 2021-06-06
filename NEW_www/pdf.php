@@ -13,26 +13,26 @@ if ( ($_FILES["upload_file"]["type"] == "application/pdf")
 && in_array($extension, $allowedExts)){
 
     if ($_FILES["upload_file"]["error"] > 0){
-        echo "错误：" . $_FILES["upload_file"]["error"] . "<br>";
-        print_r($_FILES["upload_file"]);
+        echo "#ERROR# " . $_FILES["upload_file"]["error"] . "<br>";
+        // print_r($_FILES["upload_file"]);
     }else{
 
         if (file_exists("upload/" . $_FILES["upload_file"]["name"])){
-            echo $_FILES["upload_file"]["name"] . " 文件已经存在。 ";
+            echo "#ERROR# " . $_FILES["upload_file"]["name"] . " 文件已经存在。 ";
         }
         else{
             // 如果 upload 目录不存在该文件则将文件上传到 upload 目录下
             move_uploaded_file($_FILES["upload_file"]["tmp_name"], "upload/" . $_FILES["upload_file"]["name"]);
         }
 
-        $pyPATH = "C:\Users\jht20\AppData\Local\Programs\Python\Python37\python.exe";
+        $pyPATH = "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\python.exe";
         exec($pyPATH . " PDFparser.py " . $_FILES["upload_file"]["name"], $output);
         // $metadata = json_decode($output[0], true);
         // echo json_encode($metadata);
-        echo $output[0];
+        echo ($output[0]);
     }
     
 }else{
-    echo "非法的文件格式";
+    echo "#ERROR# NOT_A_FILE";
 }
 ?>

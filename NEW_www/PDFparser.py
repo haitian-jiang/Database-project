@@ -30,6 +30,7 @@ def process_data(data):
 
 def main():
     filename = sys.argv[1]
+#    filename = "main.pdf"
     handler = pdfplumber.open("upload/"+filename)
     data = process_data(handler.metadata)
     print(json.dumps(data))

@@ -38,27 +38,32 @@ function deleteCurrentRow(obj){
 $(function(){
 	$("#upfile").ajaxForm(function(response_text)
 	{
-		var raw_json = response_text;
-		var pinfo_json = JSON.parse(raw_json);
-		$("#paper_name").val(pinfo_json.Title.text());
-		$("#publish_date").val(pinfo_json.publish_date.text());
-		$("#jname").val(pinfo_json.jname.text());
-		$("#keywords").val(pinfo_json.Keywords.text());
-		$("#jtime").val(pinfo_json.jtime.text());
-		$("#jplace").val(pinfo_json.jplace.text());
-		//清空已经有的作者表单
-		tr=tab.getElementsByTagName("tr");
-		trlength = tr.length;
-		for(var i = 1; i != trlength; i++){
-			tab.removeChild(tr[i]);
-		}
-		//添加表单
-		author_lists = pinfo_json.Author.records;
-		t = pinfo_json.Author.records.length;
-		if (t != 0){
-			for(var i = 0; i != t;i++){
-				AddRow(pinfo_json.Author.records[i-1].Author.text())
+		alert(response_text);
+		if(response_text.substring(0,7) == "#ERROR#")
+			alert("请检查您的文件！以下为错误代码：\n"+response_text)
+		else{
+			var raw_json = response_text;
+			var pinfo_json = JSON.parse(raw_json);
+			$("#paper_name").val(pinfo_json.Title);
+			$("#publish_date").val(pinfo_json.publish_date);
+			$("#jname").val(pinfo_json.jname);
+			$("#keywords").val(pinfo_json.Keywords);
+			//清空已经有的作者表单
+			tr=tab.getElementsByTagName("tr");
+			trlength = tr.length;
+			for(var i = trlength-1; i != 0; i--){
+				tab.removeChild(tr[i]);
+			}			//添加表单
+			/* 如果是列表的话
+			author_lists = pinfo_json.Author;
+			t = author_lists.length;
+			if (t != 0){
+				for(var i = 0; i != t;i++){
+					AddRow(author_lists[i])
+				}
 			}
+			*/
+			AddRow(pinfo_json.Author);
 		}
 	});
 });
