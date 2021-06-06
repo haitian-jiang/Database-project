@@ -44,21 +44,21 @@ function deviceprop1_write_table(m){
 			'<button class="btn btn-default" style = "height: 20px; width: 100%; font-weight: bold" onclick="collect_paper('+main_json[i].id+')"></button>';
 		//论文题目
 		paper_name = document.createElement("td");
-		paper_name.innerHTML = "<a style = l1 herf = '#' onclick='show_keywords("+main_json[i].id+")'>"+main_json[i].paper_name+"</a>";
+		paper_name.innerHTML = "<a herf = '#' onclick='show_keywords("+main_json[i].id+")'>"+main_json[i].paper_name+"</a>";
 		//作者(需要大改)
 		author = document.createElement("td");
 		//添加作者的个人信息
 		author_lists = main_json[i].author;
 		Auhtorlen = author_lists.length;
 		for(var j = 0 ; j != Auhtorlen ; j++){
-			author.innerHTML = author.innerHTML + "<a style= l1 herf = '', onclick=\"author_info('"+author_lists[j].name+"',"+main_json[i].id+")\">"+ author_lists[j].name + "</a> ;";
+			author.innerHTML = author.innerHTML + "<a herf = '', onclick=\"author_info('"+author_lists[j].name+"',"+main_json[i].id+")\">"+ author_lists[j].name + "</a> ;";
 		//发行时间
 		}
 		publish_date = document.createElement("td");
 		publish_date.innerHTML = main_json[i].publish_date;
 		//期刊
 		jname = document.createElement("td");
-		jname.innerHTML = "<a style = l1 herf = '#' onclick='show_jinfo("+main_json[i].id+")'>" + main_json[i].jname + "</a>";
+		jname.innerHTML = "<a herf = '#' onclick='show_jinfo("+main_json[i].id+")'>" + main_json[i].jname + "</a>";
 		tab.appendChild(tr[i]);
 		tr[i].appendChild(num);
 		tr[i].appendChild(paper_name);
@@ -101,7 +101,7 @@ function author_info(author,id){
 }
 
 function collect_paper(obj) {
-	$.post("", { paper_id:obj} ,function(status) {
+	$.post("add_collection", { paper_id:obj} ,function(status) {
 		if (status == 1) {
 			alert("您已成功收藏该论文");
 		}

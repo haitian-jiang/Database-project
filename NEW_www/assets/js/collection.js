@@ -68,35 +68,35 @@ function deviceprop1_write_table(m){
 	}
 }
 function show_keywords(obj){
-	$.post("", { paper_id:obj} ,function(data) {
+	$.post("show_keyword.php", { paper_id:obj} ,function(data) {
 		var raw_json = data;
 		var pinfo_json = JSON.parse(raw_json);
-		keywords_lists = pinfo_json.keywords;
-		t = pinfo_json.keywords.length;
+		t = pinfo_json.length;
 		key_string = '';
 		if (t != 0){
 			for(var i = 0; i != t;i++){
-				key_string = key_string + keywords_lists[i] + ';';
+				key_string = key_string + pinfo_json[i].keyword + '; ';
 			}
 		}
-		alert("related subjects:"+key_string);
+		alert("related subjects:\n"+key_string);
 	})
 }
 
 function show_jinfo(obj){
-	$.post("", { paper_id:obj} ,function(data) {
+	$.post("show_jtimejplace.php", { paper_id:obj} ,function(data) {
 		var raw_json = data;
 		var pinfo_json = JSON.parse(raw_json);
-		alert("期刊发行时间:"+ pinfo_json.jdate + "地点/版号："+pinfo_json.jplace);
+		var i = 0;
+		alert("期刊发行时间如下：\n"+ pinfo_json[0].jtime[0].jtime.substring(0,10) + "\n地点/版号如下：\n"+pinfo_json[0].jplace[0].jplace);
 	})
 }
 
 function author_info(author,id){
-	$.post("", { paper_id:id, author_name:author} ,function(data) {
+	$.post("show_institution.php", { paper_id:id, author_name:author} ,function(data) {
 		var raw_json = data;
 		var pinfo_json = JSON.parse(raw_json);
-		institution = pinfo_json.institution;
-		alert("作者所在单位"+institution);
+		institution = pinfo_json[0].institution;
+		alert("作者所在单位如下：\n"+institution);
 	})
 }
 
@@ -104,7 +104,7 @@ function drop_paper(obj) {
 	var isDelete=confirm("真的要删除吗？");
 	if(isDelete){
 		id = obj.value();
-		$.post("", { paper_id:id} ,function(status) {
+		$.post("delete_collection", { paper_id:id} ,function(status) {
 			if (status == 1) {
 					alert("您已成功删除该论文");
 					var tr=obj.parentNode.parentNode;
