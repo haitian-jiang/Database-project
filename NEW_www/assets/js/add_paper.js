@@ -40,10 +40,10 @@ $(function(){
 	{
 		var raw_json = response_text;
 		var pinfo_json = JSON.parse(raw_json);
-		$("#paper_name").val(pinfo_json.paper_name.text());
+		$("#paper_name").val(pinfo_json.Title.text());
 		$("#publish_date").val(pinfo_json.publish_date.text());
 		$("#jname").val(pinfo_json.jname.text());
-		$("#keywords").val(pinfo_json.keywords.text());
+		$("#keywords").val(pinfo_json.Keywords.text());
 		$("#jtime").val(pinfo_json.jtime.text());
 		$("#jplace").val(pinfo_json.jplace.text());
 		//清空已经有的作者表单
@@ -53,11 +53,11 @@ $(function(){
 			tab.removeChild(tr[i]);
 		}
 		//添加表单
-		author_lists = pinfo_json.author.records;
-		t = pinfo_json.author.records.length;
+		author_lists = pinfo_json.Author.records;
+		t = pinfo_json.Author.records.length;
 		if (t != 0){
 			for(var i = 0; i != t;i++){
-				AddRow(pinfo_json.author.records[i-1].author.text())
+				AddRow(pinfo_json.Author.records[i-1].Author.text())
 			}
 		}
 	});
