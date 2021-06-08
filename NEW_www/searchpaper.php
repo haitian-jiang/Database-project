@@ -118,8 +118,11 @@
                 break;
 
             case "publish_date"://用户按照发表日期，即数据库中paper表的available_date查询
-                //$datetime = DATE_FORMAT($usr_input,'%Y-%m-%d %H:%i:%s');
-                $sql = "SELECT * FROM paper WHERE available_date = STRING_TO_DATE($usr_input,'%Y-%m-%d %H-%i-%s')";
+                $j_time = $usr_input;
+                $j_timestring = substr($j_time,0,4) . "-" . substr($j_time,4,2) . "-" . substr($j_time,6,2) . " " . '00:00:00';
+                //$date = strtotime($j_timestring);
+                //$jtime = date('Y-m-d H:i:s', $date);
+                $sql = "SELECT * FROM paper WHERE available_date = '$j_timestring'";
                 $res = $conn->query($sql);
                 $row = $res->fetch_all(MYSQLI_ASSOC);
                 if($row == NULL){
