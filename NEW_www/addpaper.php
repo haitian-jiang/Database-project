@@ -32,7 +32,7 @@
     //向author表中插入记录
     for($i=0; $i < $authorcount; $i++){
         $add_into_author_sql = "INSERT INTO `author` (`pid`, `name`, `institution`) VALUES ('$pid', '$authorarray[$i]', '$institutionarray[$i]')";
-        $add_into_author_res = $conn->query($add_into_keyword_sql);
+        $add_into_author_res = $conn->query($add_into_author_sql);
     }
     //向keyword表中插入记录
     for($i=0; $i < $keywordcount; $i++){
