@@ -10,7 +10,7 @@
     else{
         switch ($method) {
             case "paper_name"://用户按照论文名称，即数据库中paper表的name查询
-                $sql = "SELECT * FROM paper WHERE name LIKE '$usr_input%'";
+                $sql = "SELECT * FROM paper WHERE name LIKE '%$usr_input%'";
                 $res = $conn->query($sql);
                 $row = $res->fetch_all(MYSQLI_ASSOC);
                 if($row == NULL){
@@ -37,7 +37,7 @@
                 break;
 
             case "author"://用户按照论文作者，即数据库中author表的name查询
-                $sql = "SELECT pid FROM author WHERE name LIKE '$usr_input%'";
+                $sql = "SELECT pid FROM author WHERE name LIKE '%$usr_input%'";
                 $res = $conn->query($sql);
                 $row = $res->fetch_all(MYSQLI_ASSOC);
                 if($row == NULL){
@@ -64,7 +64,7 @@
                 break;
 
             case "institution"://用户按照单位，即数据库中author表的institution查询
-                $sql = "SELECT * FROM author WHERE institution LIKE '$usr_input%'";
+                $sql = "SELECT * FROM author WHERE institution LIKE '%$usr_input%'";
                 $res = $conn->query($sql);
                 $row = $res->fetch_all(MYSQLI_ASSOC);
                 if($row == NULL){
@@ -91,7 +91,7 @@
                 break;
 
             case "journal"://用户按照期刊,会议，即数据库中paper表的jname查询
-                $sql = "SELECT * FROM paper WHERE jname LIKE '$usr_input%'";
+                $sql = "SELECT * FROM paper WHERE jname LIKE '%$usr_input%'";
                 $res = $conn->query($sql);
                 $row = $res->fetch_all(MYSQLI_ASSOC);
                 if($row == NULL){
@@ -149,7 +149,7 @@
                 break;
 
             case "keywords"://用户按照关键字，即数据库中keyword表的keyword查询
-                $sql = "SELECT * FROM keyword WHERE keyword LIKE '$usr_input%'";
+                $sql = "SELECT * FROM keyword WHERE keyword LIKE '%$usr_input%'";
                 $res = $conn->query($sql);
                 $row = $res->fetch_all(MYSQLI_ASSOC);
                 if($row == NULL){

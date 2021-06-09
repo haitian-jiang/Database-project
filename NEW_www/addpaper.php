@@ -4,8 +4,20 @@
     include 'connect.php';     //调用数据库连接文件
 
     $papername = $_POST['paper_name'];
+
+
+    $authorcount = $_POST['authornum'];
+    $authorarray = array();
+    $institutionarray = array();
+    for($i=0; $i < $authorcount; $i++){
+        $index = ;
+        $authorarray[$i] = $_POST['author' . "" . string($index)];
+        $instiutionarray[$i] = $_POST['institution' . "" . string($index)];
+    }
+
     $authorstring = $_POST['author'];   //有很多个作者
     $institutionstring = $_POST['institution']; //有很多个单位，每个作者对应一个长字符串
+
     $keywordsstring = $_POST['keywords'];   //字符串，有很多个关键词，用分号隔开
     $publish_date = $_POST['publish_date']; //字符串，8位数字，需转换为datetime类型
     $jname = $_POST['pname'];
@@ -33,13 +45,13 @@
 
     //向author表中插入记录
     for($i=0; $i < ; $i++){
-        $add_into_author_sql = "INSERT INTO `author` (`pid`, `name`, `institution`) VALUES ('$pid', '$authorarray[i]', '$institutionarray[i]')";
+        $add_into_author_sql = "INSERT INTO `author` (`pid`, `name`, `institution`) VALUES ('$pid', '$authorarray[$i]', '$institutionarray[$i]')";
         $add_into_author_res = $conn->query($add_into_keyword_sql);
     }
 
     //向keyword表中插入记录
     for($i=0; $i < $keywordcount; $i++){
-        $add_into_keyword_sql = "INSERT INTO `keyword` (`pid`, `keyword`) VALUES ('$pid', '$keywordarray[i]')";
+        $add_into_keyword_sql = "INSERT INTO `keyword` (`pid`, `keyword`) VALUES ('$pid', '$keywordarray[$i]')";
         $add_into_keyword_res = $conn->query($add_into_keyword_sql);
     }
 
