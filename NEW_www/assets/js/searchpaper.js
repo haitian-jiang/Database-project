@@ -123,7 +123,8 @@ function getQueryVariable(variable){
 
 $(window).load(function(){
 	var kw = getQueryVariable("keywords");
-	var pn = getQueryVariable("pid");
+	var pn = getQueryVariable("paper_name");
+	var au = getQueryVariable("author");
 	if (kw != false){
 		$.post("searchpaper.php", {method:"keywords",usr_input:kw} ,function(response_text) {
 			alert(response_text);
@@ -143,7 +144,27 @@ $(window).load(function(){
 		});
 	}
 	else if (pn != false){
-		$.post("searchpaper.php", {method:"paper_id",usr_input:pn} ,function(response_text) {
+		pn=pn.replace("%20","\40")
+		$.post("searchpaper.php", {method:"paper_name",usr_input:pn} ,function(response_text) {
+			//	alert(response_text);
+			refresh_main_table();
+			if(response_text == "PC404")
+				main_json = [{"total_num": 0}];
+			else{
+				//		alert(response_text);
+				raw_json = response_text;
+				main_json = JSON.parse(raw_json);
+				t = main_json.length;
+				var fir = {"total_num" : t};
+				main_json.unshift(fir);
+			}
+			deviceprop1_show_total();
+			deviceprop1_write_table(main_json[0].total_num);
+		});
+	}
+	else if (au != false){
+		au = au.replace(/%20/g,"\40");
+		$.post("searchpaper.php", {method:"author",usr_input:au} ,function(response_text) {
 			//	alert(response_text);
 			refresh_main_table();
 			if(response_text == "PC404")
