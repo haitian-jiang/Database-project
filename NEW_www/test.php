@@ -23,7 +23,7 @@
     } 
     else {
         $comment = test_input($_POST["author"]);
-    }*/
+    }
     $papername = $_POST['paper_name'];
     //$authorstring = $_POST['author'];   //字符串，有很多个作者，用分号隔开
     //$institutionstring = $_POST['institution']; //字符串，有很多个单位，用分号隔开
@@ -57,7 +57,7 @@
     echo $authorarray[1];
     echo $institutionarray[1];
     echo '<br>';  
-    /*$institutionarray = array();
+    $institutionarray = array();
     for($i=0; $i < $authorcount; $i++){
         $string1 = (string)($i+1);
         $authorarray[$i] = $_POST['author' . "" . $string1 ];
@@ -65,7 +65,7 @@
         $instiutionarray[$i] = $_POST['institution' . "" . $string1 ];
         echo $institutionarray[$i];
         echo '<br>';
-    }*/
+    }
     echo '<br>';
     echo $papername;
     echo '<br>';
@@ -124,5 +124,21 @@
         echo '<br>';
     }
     $j = 123;
-    echo (string)$j;
+    echo (string)$j;*/
+
+    /*$username = "5aec5rW35aSp";
+    $password = "*02DF60735CA7783BE624A6C9AE6092F6744D98C9";
+    $selsql="SELECT username,password FROM user WHERE username = '$username' AND password = '$password'";
+    $selres=$conn->query($selsql);
+    $selrow=$selres->fetch_object();
+    echo $selrow->password;
+    echo '<br>';
+    echo $password;
+    header("location:index.html");*/
+    header("location:index.html");
+    //session_start();
+    //$username = $_SESSION['username'];
+    //$name_encoded = base64_encode($username);
+    //$name_encoded = session_id(); 
+    //echo $name_encoded;
 ?>
