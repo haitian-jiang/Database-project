@@ -1,3 +1,4 @@
+/*
 $(function(){
 	$("#devicepropman_add").ajaxForm(function(response_text)
 	{
@@ -8,26 +9,33 @@ $(function(){
 			swal(response_text, "信息添加失败，请检查您的输入！", "error");
 	});
 });
+ */
 
 var tab = document.getElementById("author-institution");
 
+inter = 0;
+total_au = 0;
+
 function AddRow(obj = ""){
-		tr = document.createElement("tr");
-		let del = document.createElement("td");
-		del.innerHTML = '<button class="btn btn-default" onclick="deleteCurrentRow(this)">删除作者</button>';
-		let author = document.createElement("td");
-		author.innerHTML = '<input class="form-control input-rounded" type="text" name="author" value = "' + obj +'" required="required">';
-		let institution = document.createElement("td");
-		institution.innerHTML = '<input class="form-control input-rounded" type="text" name="institution">'
-		tab.appendChild(tr);
-		tr.appendChild(del);
-		tr.appendChild(author);
-		tr.appendChild(institution);
+	inter++;
+	total_au++;
+	tr = document.createElement("tr");
+	let del = document.createElement("td");
+	del.innerHTML = '<button class="btn btn-default" onclick="deleteCurrentRow(this)">删除作者</button>';
+	let author = document.createElement("td");
+	author.innerHTML = '<input class="form-control input-rounded" type="text" name="author"'+inter+' value = "' + obj +'" required="required">';
+	let institution = document.createElement("td");
+	institution.innerHTML = '<input class="form-control input-rounded" type="text" name="institution">'
+	tab.appendChild(tr);
+	tr.appendChild(del);
+	tr.appendChild(author);
+	tr.appendChild(institution);
 }
 
 function deleteCurrentRow(obj){
 	var isDelete=confirm("真的要删除吗？");
 	if(isDelete){
+		total_au--;
 		var tr=obj.parentNode.parentNode;
 		var tbody=tr.parentNode;
 		tbody.removeChild(tr);

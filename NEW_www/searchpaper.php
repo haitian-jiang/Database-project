@@ -29,7 +29,7 @@
                         $authorinfores = $conn->query($authorinfosql);
                         $authorinforow = $authorinfores->fetch_all(MYSQLI_ASSOC);
                         $row[$i]['author'] = $authorinforow;
-                        $row[$i]['publish_date'] = substr($paperinforow->available_date,0,10);
+                        $row[$i]['publish_date'] = $paperinforow->available_date;
                         $row[$i]['jname'] = $paperinforow->jname;
                     }
                     echo json_encode($row);
@@ -56,7 +56,7 @@
                         $authorinfores = $conn->query($authorinfosql);
                         $authorinforow = $authorinfores->fetch_all(MYSQLI_ASSOC);
                         $row[$i]['author'] = $authorinforow;
-                        $row[$i]['publish_date'] = substr($paperinforow->available_date,0,10);
+                        $row[$i]['publish_date'] = $paperinforow->available_date;
                         $row[$i]['jname'] = $paperinforow->jname;
                     }
                     echo json_encode($row);
@@ -83,7 +83,7 @@
                         $authorinfores = $conn->query($authorinfosql);
                         $authorinforow = $authorinfores->fetch_all(MYSQLI_ASSOC);
                         $row[$i]['author'] = $authorinforow;
-                        $row[$i]['publish_date'] = substr($paperinforow->available_date,0,10);
+                        $row[$i]['publish_date'] = $paperinforow->available_date;
                         $row[$i]['jname'] = $paperinforow->jname;
                     }
                     echo json_encode($row);
@@ -110,7 +110,7 @@
                         $authorinfores = $conn->query($authorinfosql);
                         $authorinforow = $authorinfores->fetch_all(MYSQLI_ASSOC);
                         $row[$i]['author'] = $authorinforow;
-                        $row[$i]['publish_date'] = substr($paperinforow->available_date,0,10);
+                        $row[$i]['publish_date'] = $paperinforow->available_date;
                         $row[$i]['jname'] = $paperinforow->jname;
                     }
                     echo json_encode($row);
@@ -141,7 +141,7 @@
                         $authorinfores = $conn->query($authorinfosql);
                         $authorinforow = $authorinfores->fetch_all(MYSQLI_ASSOC);
                         $row[$i]['author'] = $authorinforow;
-                        $row[$i]['publish_date'] = substr($paperinforow->available_date,0,10);
+                        $row[$i]['publish_date'] = $paperinforow->available_date;
                         $row[$i]['jname'] = $paperinforow->jname;
                     }
                     echo json_encode($row);
@@ -168,7 +168,7 @@
                         $authorinfores = $conn->query($authorinfosql);
                         $authorinforow = $authorinfores->fetch_all(MYSQLI_ASSOC);
                         $row[$i]['author'] = $authorinforow;
-                        $row[$i]['publish_date'] = substr($paperinforow->available_date,0,10);
+                        $row[$i]['publish_date'] = $paperinforow->available_date;
                         $row[$i]['jname'] = $paperinforow->jname;
                     }
                     echo json_encode($row);

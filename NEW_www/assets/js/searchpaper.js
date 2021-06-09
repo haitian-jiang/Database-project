@@ -101,7 +101,7 @@ function author_info(author,id){
 }
 
 function collect_paper(obj) {
-	$.post("add_collection", { paper_id:obj} ,function(status) {
+	$.post("add_collection", {paper_id:obj} ,function(status) {
 		if (status == 1) {
 			alert("您已成功收藏该论文");
 		}
@@ -110,3 +110,54 @@ function collect_paper(obj) {
 		}
 	})
 }
+
+function getQueryVariable(variable){
+	var query = window.location.search.substring(1);
+	var vars = query.split("&");
+	for (var i=0;i<vars.length;i++) {
+		var pair = vars[i].split("=");
+		if(pair[0] == variable){return pair[1];}
+	}
+	return(false);
+}
+
+$(window).load(function(){
+	var kw = getQueryVariable("keywords");
+	var pn = getQueryVariable("pid");
+	if (kw != false){
+		$.post("searchpaper.php", {method:"keywords",usr_input:kw} ,function(response_text) {
+			alert(response_text);
+			refresh_main_table();
+			if(response_text == "PC404")
+				main_json = [{"total_num": 0}];
+			else{
+				//		alert(response_text);
+				raw_json = response_text;
+				main_json = JSON.parse(raw_json);
+				t = main_json.length;
+				var fir = {"total_num" : t};
+				main_json.unshift(fir);
+			}
+			deviceprop1_show_total();
+			deviceprop1_write_table(main_json[0].total_num);
+		});
+	}
+	else if (pn != false){
+		$.post("searchpaper.php", {method:"paper_id",usr_input:pn} ,function(response_text) {
+			//	alert(response_text);
+			refresh_main_table();
+			if(response_text == "PC404")
+				main_json = [{"total_num": 0}];
+			else{
+				//		alert(response_text);
+				raw_json = response_text;
+				main_json = JSON.parse(raw_json);
+				t = main_json.length;
+				var fir = {"total_num" : t};
+				main_json.unshift(fir);
+			}
+			deviceprop1_show_total();
+			deviceprop1_write_table(main_json[0].total_num);
+		});
+	}
+})

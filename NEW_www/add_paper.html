@@ -26,7 +26,6 @@
     <link href="assets/css/lib/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/lib/helper.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
-    <script src="../www/assets/js/deviceprop2.js"></script>
 </head>
 
 <body>
@@ -117,7 +116,7 @@
                             <div class="card">
                                 <form role="form" name="add_paper" id="add_paper" action="test.php" method="post">
                                         论文题目(必填)：
-                                        <input class="form-control input-rounded" type="text" id="paper_name" name="paper_name" required="required">
+                                        <input class="form-control input-rounded" type="text" id="paper_name" required="required">
                                         作者与作者所在机构的信息填写,如果有多个作者，请按下面的button添加栏目！
                                         <table class="table table-striped table-bordered table-hover" id = 'author-institution'>
                                         <thead>
@@ -126,19 +125,15 @@
                                                 <th style="width:40%">作者，一行只填一个，如有多个点击添加作者</th>
                                                 <th style="width:40%">作者所在机构，如果有多个请用";"隔开</th>
                                             </tr>
-                                            <tr>
-                                                <th> <button class="btn btn-default" onclick="deleteCurrentRow(this)">删除作者 </button> </th>
-                                                <th> <input class="form-control input-rounded" type="text" name="author" required="required"></th>
-                                                <th> <input class="form-control input-rounded" type="text" name="institution"></th>
-                                            </tr>
                                         </thead>
                                     </table>
-                                        关键字(多个关键字之间请用";"隔开)：<input class="form-control input-rounded" type="text" name="keywords" id="keywords">
-                                        发表日期：<input class="form-control input-rounded" type="text" name="publish_date" id="publish_date" placeholder="八位数字，如20190101">
-                                        期刊/会议：<input class="form-control input-rounded" type="text" name="pname" id="pname">
-                                        期刊发行日期：<input class="form-control input-rounded" type="text" name="jtime" id="jtime" placeholder="八位数字，如20190101">
-                                        期刊版号/会议地点：<input class="form-control input-rounded" type="text" name="jplace" id="jplace">
-                                    <button type="submit" class="btn btn-default" id=“devicepropman_add”>确认添加</button>
+                                        关键字(多个关键字之间请用";"隔开)：<input class="form-control input-rounded" type="text" id="keywords">
+                                        发表日期：<input class="form-control input-rounded" type="text" id="publish_date" placeholder="八位数字，如20190101">
+                                        期刊/会议：<input class="form-control input-rounded" type="text" id="pname">
+                                        期刊发行日期：<input class="form-control input-rounded" type="text" id="jtime" placeholder="八位数字，如20190101">
+                                        期刊版号/会议地点：<input class="form-control input-rounded" type="text" id="jplace">
+                                        <input hidden type="text" name="total_au" value=total_au>
+                                    <button type = "submit" class="btn btn-default" id=“devicepropman_add”>确认添加</button>
                                     <button type="reset" class="btn btn-default">清空</button>
                                 </form>
                             </div>

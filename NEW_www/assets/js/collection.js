@@ -1,13 +1,12 @@
 var main_json = [{"total_num" : 0}];
 
-$(function(){
-	$("#search_paper_inquire").ajaxForm(function(response_text)	{
-		//	alert(response_text);
+$(window).load(function(){
+	$.getJSON("server.php", function(json){
 		refresh_main_table();
 		if(response_text == "PC404")
 			main_json = [{"total_num": 0}];
 		else{
-			//		alert(response_text);
+			//alert(response_text);
 			raw_json = response_text;
 			main_json = JSON.parse(raw_json);
 			t = main_json.length;
@@ -19,6 +18,12 @@ $(function(){
 	});
 });
 
+/*
+(function(response_text)	{
+		//	alert(response_text);
+
+	});
+ */
 function refresh_main_table(){
 	var tab =document.getElementById("deviceprop1_main_table");
 	var tr=tab.getElementsByTagName("tr");
