@@ -4,6 +4,7 @@
     include 'connect.php';     //调用数据库连接文件
 
     $pid = $_POST['paper_id'];     //接收前台post值
+    echo $pid;
     $jtimesql = "SELECT jtime FROM paper WHERE id = '$pid'";
     $jtimeres = $conn->query($jtimesql);
     $jtimerow = $jtimeres->fetch_all(MYSQLI_ASSOC);

@@ -5,9 +5,9 @@
 
     $pid = $_POST['paper_id'];     //接收前台post值
     session_start();
-    //$username = $_SESSION['username'];
-    //$name_encoded = base64_encode($username);  
-    $name_encoded = session_id(); 
+    $username = $_SESSION['username'];
+    $name_encoded = base64_encode($username);
+    //echo $name_encoded;   
     $uidsql = "SELECT * FROM user WHERE username = '$name_encoded'";
     $uidres = $conn->query($uidsql);
     $uidrow = $uidres->fetch_object();
@@ -21,7 +21,7 @@
     $insertsql = "INSERT favourite (`uid`, `pid`, `collect_time`) VALUES ('$uid', '$pid', '$time')";
     $send = $conn->query($insertsql);   //向favourite表中添加这条记录
     if ($send)
-        return TRUE;
+        echo true;
     else
-        return FALSE;
+        echo false;
 ?>

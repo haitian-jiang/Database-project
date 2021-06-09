@@ -101,8 +101,8 @@ function author_info(author,id){
 }
 
 function collect_paper(obj) {
-	$.post("add_collection", {paper_id:obj} ,function(status) {
-		if (status == 1) {
+	$.post("add_collection.php", {paper_id:obj} ,function(status) {
+		if (status == true) {
 			alert("您已成功收藏该论文");
 		}
 		else {

@@ -32,14 +32,14 @@
             else{
  				$_SESSION['username'] = $_POST['username'];
  			}
-            //header("location:index.html");
+            header("location:index.html");
         }
         else{
 			echo "<script>alert('LOGIN ERROR');history.back();</script>";
 		}
 
     }
-    session_start();
+    /*session_start();
     $username = $_SESSION['username'];
     $name_encoded = base64_encode($username); 
     //$name_encoded = session_id(); 
@@ -49,5 +49,5 @@
     $idsql="SELECT id FROM user WHERE username = '$name_encoded'";
     $idres=$conn->query($idsql);
     $idrow=$idres->fetch_object();
-    echo $idrow->id;
+    echo $idrow->id;*/
 ?>
