@@ -48,6 +48,6 @@
     echo "hello world!";
     $idsql="SELECT id FROM user WHERE username = '$name_encoded'";
     $idres=$conn->query($idsql);
-    $idrow=$selres->fetch_object();
+    $idrow=$idres->fetch_object();
     echo $idrow->id;
 ?>
