@@ -117,7 +117,7 @@
                             <div class="card">
                                 <form role="form" name="add_paper" id="add_paper" action="test.php" method="post">
                                         论文题目(必填)：
-                                        <input class="form-control input-rounded" type="text" id="paper_name" required="required">
+                                        <input class="form-control input-rounded" type="text" id="paper_name" name="paper_name" required="required">
                                         作者与作者所在机构的信息填写,如果有多个作者，请按下面的button添加栏目！
                                         <table class="table table-striped table-bordered table-hover" id = 'author-institution'>
                                         <thead>
@@ -133,11 +133,11 @@
                                             </tr>
                                         </thead>
                                     </table>
-                                        关键字(多个关键字之间请用";"隔开)：<input class="form-control input-rounded" type="text" id="keywords">
-                                        发表日期：<input class="form-control input-rounded" type="text" id="publish_date" placeholder="八位数字，如20190101">
-                                        期刊/会议：<input class="form-control input-rounded" type="text" id="pname">
-                                        期刊发行日期：<input class="form-control input-rounded" type="text" id="jtime" placeholder="八位数字，如20190101">
-                                        期刊版号/会议地点：<input class="form-control input-rounded" type="text" id="jplace">
+                                        关键字(多个关键字之间请用";"隔开)：<input class="form-control input-rounded" type="text" name="keywords" id="keywords">
+                                        发表日期：<input class="form-control input-rounded" type="text" name="publish_date" id="publish_date" placeholder="八位数字，如20190101">
+                                        期刊/会议：<input class="form-control input-rounded" type="text" name="pname" id="pname">
+                                        期刊发行日期：<input class="form-control input-rounded" type="text" name="jtime" id="jtime" placeholder="八位数字，如20190101">
+                                        期刊版号/会议地点：<input class="form-control input-rounded" type="text" name="jplace" id="jplace">
                                     <button type="submit" class="btn btn-default" id=“devicepropman_add”>确认添加</button>
                                     <button type="reset" class="btn btn-default">清空</button>
                                 </form>

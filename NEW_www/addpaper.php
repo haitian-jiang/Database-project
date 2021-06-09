@@ -3,7 +3,6 @@
     error_reporting(E_ALL &~ E_NOTICE);     //屏蔽错误信息
     include 'connect.php';     //调用数据库连接文件
 
-
     $papername = $_POST['paper_name'];
     $authorstring = $_POST['author'];   //字符串，有很多个作者，用分号隔开
     $institutionstring = $_POST['institution']; //字符串，有很多个单位，用分号隔开
@@ -12,24 +11,36 @@
     $jname = $_POST['pname'];
     $j_time = $_POST['jtime'];   //字符串，8位数字，需转换为datetime类型
     $jplace = $_POST['jplace'];
+    //author instituition信息只能得到最后一条记录，其他所有问题都已解决
 
     $available_date = substr($publish_date,0,4) . "-" . substr($publish_date,4,2) . "-" . substr($publish_date,6,2) . " " . '00:00:00';
     $jtime = substr($j_time,0,4) . "-" . substr($j_time,4,2) . "-" . substr($j_time,6,2) . " " . '00:00:00';
-    $keywordarray = preg_split(";",$keywordsstring);  //得到一个数组，每个元素都是一个关键词
+    $keywordarray = preg_split("/;/",$keywordsstring);  //按照分号拆分字符串，得到一个数组，每个元素都是一个关键词
     $keywordcount = count($keywordarray);   //关键词数量
 
     //将属于paper表的信息插入paper表
     $add_into_paper_sql = "INSERT INTO `paper` (`name`, `available_date`, `jname`, `jtime`, `jplace`) VALUES ('$papername', '$available_date', '$jname', '$jtime', '$jplace')";
     $add_into_paper_res = $conn->query($add_into_paper_sql);
     //插入paper表后得到paperid
-    $getpaperid_sql = "SELECT LAST_INSERT_ID()";
+    $getpaperid_sql = "SELECT id FROM paper WHERE name='$papername' and available_date='$available_date' and jname='$jname' and jtime='$jtime' and jplace='$jplace'";
     $getpaperid_res = $conn->query($getpaperid_sql);
-    $paperid = $getpaperid_res->fetch_all(MYSQLI_ASSOC);
+    $paperid = $getpaperid_res->fetch_object();
+    $pid = $paperid->id;
 
+    //向author表中插入记录
+    for($i=0; $i < ; $i++){
+
+    }
+
+    //向keyword表中插入记录
     for($i=0; $i < $keywordcount; $i++){
-        $add_into_keyword_sql = "INSERT INTO `keyword` (`pid`, `keyword`) VALUES ('$paperid', '$keywordarray[i]')";
+        $add_into_keyword_sql = "INSERT INTO `keyword` (`pid`, `keyword`) VALUES ('$pid', '$keywordarray[i]')";
         $add_into_keyword_res = $conn->query($add_into_keyword_sql);
     }
 
+    if($pid)
+        return TRUE;
+    else
+        return FALSE;
 
 ?>

@@ -4,10 +4,15 @@
     include 'connect.php';     //调用数据库连接文件
 
     session_start();
-    $username = $_SESSION['username'];
-    //$name_encoded = base64_encode($username);  //查找此姓名对应的id
-    $userid = base64_encode($username);  //查找此姓名对应的id
-    $sql = "SELECT * FROM favourite WHERE uid = '$userid'";
+    //$username = $_SESSION['username'];
+    //$userid = base64_encode($username);//查找此姓名对应的id
+    $name_encoded = session_id(); 
+    $uidsql = "SELECT * FROM user WHERE username = '$name_encoded'";
+    $uidres = $conn->query($uidsql);
+    $uidrow = $uidres->fetch_object();
+    $uid = $uidrow->id;
+
+    $sql = "SELECT * FROM favourite WHERE uid = '$uid'";
     $res = $conn->query($sql);
     $row = $res->fetch_all(MYSQLI_ASSOC);
     if($row == NULL){

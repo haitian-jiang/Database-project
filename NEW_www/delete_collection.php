@@ -3,12 +3,17 @@
     error_reporting(E_ALL &~ E_NOTICE);     //屏蔽错误信息
     include 'connect.php';     //调用数据库连接文件
 
-    session_start();
-    $username = $_SESSION['username'];
-    //$name_encoded = base64_encode($username);//查找此姓名对应的id
-    $userid = base64_encode($username);//查找此姓名对应的id
     $pid = $_POST['paper_id'];     //接收前台post值
-    $deletesql = "DELETE FROM favourite WHERE uid = '$userid' and pid = '$pid'"; //删除指定用户id和论文id的记录
+    session_start();
+    //$username = $_SESSION['username'];
+    //$userid = base64_encode($username);//查找此姓名对应的id
+    $name_encoded = session_id(); 
+    $uidsql = "SELECT * FROM user WHERE username = '$name_encoded'";
+    $uidres = $conn->query($uidsql);
+    $uidrow = $uidres->fetch_object();
+    $uid = $uidrow->id;
+    
+    $deletesql = "DELETE FROM favourite WHERE uid = '$uid' and pid = '$pid'"; //删除指定用户id和论文id的记录
     $send = $conn->query($deletesql); //从favourite表中删除这条记录
     if ($send)
         return TRUE;
