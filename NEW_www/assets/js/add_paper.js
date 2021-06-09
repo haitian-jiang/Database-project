@@ -19,6 +19,7 @@ total_au = 0;
 function AddRow(obj = ""){
 	inter++;
 	total_au++;
+	$("#total_au").val = total_au;
 	tr = document.createElement("tr");
 	let del = document.createElement("td");
 	del.innerHTML = '<button class="btn btn-default" onclick="deleteCurrentRow(this)">删除作者</button>';
@@ -36,6 +37,7 @@ function deleteCurrentRow(obj){
 	var isDelete=confirm("真的要删除吗？");
 	if(isDelete){
 		total_au--;
+		$("#total_au").val = total_au;
 		var tr=obj.parentNode.parentNode;
 		var tbody=tr.parentNode;
 		tbody.removeChild(tr);
