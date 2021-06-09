@@ -25,8 +25,8 @@
         $comment = test_input($_POST["author"]);
     }*/
     $papername = $_POST['paper_name'];
-    $authorstring = $_POST['author'];   //字符串，有很多个作者，用分号隔开
-    $institutionstring = $_POST['institution']; //字符串，有很多个单位，用分号隔开
+    //$authorstring = $_POST['author'];   //字符串，有很多个作者，用分号隔开
+    //$institutionstring = $_POST['institution']; //字符串，有很多个单位，用分号隔开
     $keywordsstring = $_POST['keywords'];   //字符串，有很多个关键词，用分号隔开
     $publish_date = $_POST['publish_date'];  //字符串，8位数字，需转换为datetime类型
     $jname = $_POST['pname'];
@@ -45,6 +45,9 @@
     //echo $pid;
     //echo '<br>';
     //echo $papername;
+    $authorcount = $_POST['total_au'];
+    echo $authorcount;
+    echo '<br>';
     $timesql = "SELECT DATE_FORMAT(NOW(), '%Y-%m-%d %h:%i:%s')";
     $timeres = $conn->query($timesql);
     $time = $timeres->fetch_row();
