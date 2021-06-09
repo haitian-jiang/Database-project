@@ -1,39 +1,45 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>登录</title>
-<link rel="stylesheet" type="text/css" href="css/style.css" />
-<link rel="stylesheet" type="text/css" href="css/body.css"/> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>登录文献查询系统</title>
+<link rel="stylesheet" type="text/css" href="assets/login_css/style.css">
+<!-- Favicon -->
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="apple-touch-icon" sizes="144x144" href="favicon.ico">
 </head>
-<body>
+<body style="background:url(assets/login_css/login.jpg); background-size:100%;">
 <div class="container">
 	<section id="content">
-		<form method="post" action="login.php" >
+		<form id="login" method="post" action="login.php">
 			<h1>登录</h1>
 			<div>
-				<input type="text" placeholder="Username" required="" id="username" name="username" />
+				<input type="text" placeholder="用户名" required="required" id="username" name="username" onkeyup="this.value=this.value.replace(/\s+/g,'')">
 			</div>
 			<div>
-				<input type="password" placeholder="Password" required="" id="password" name="password" />
+				<input type="password" placeholder="密码" required="required" id="password" name="password" onkeyup="this.value=this.value.replace(/\s+/g,'')">
 			</div>
 			 <div class="">
 				<span class="help-block u-errormessage" id="js-server-helpinfo">&nbsp;</span>
 			</div> 
 			<div>
 				<input type="submit" value="登录" />
-				<input type="reset" value="重置" />
+    			<input type="button" value="去注册" onclick="window.location.href='register.html'">
 				<!-- <input type="submit" value="Login" class="btn btn-primary" id="js-btn-login"/> -->
-				<a href="#">Forget?</a>
-				<!-- <a href="#">Register</a> -->
+				<a href="#" style="color: grey; text-decoration: none">忘记密码？</a>
 			</div>
 		</form><!-- form -->
 	</section><!-- content -->
 </div>
 <!-- container -->
 <br><br><br><br>
-<div style="text-align:center;color: grey">
-	2019 © QBPC. 
+<div style="text-align:center;color: white">
+	2020 © 胡一凡 蔡赟浩 姜海天
 </div>
 </body>
+<script src="assets/js/lib/jquery.min.js"></script>
+<script src="assets/js/lib/jquery.form.js"></script>
+<script src="assets/js/lib/sweetalert/sweetalert.min.js"></script>
+<script src="assets/js/login.js"></script>
 </html>

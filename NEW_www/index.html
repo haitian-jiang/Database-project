@@ -57,6 +57,15 @@
     <link href="assets/css/lib/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/lib/helper.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
+
+  <style>
+    .l1 {font-size: 16px;font-family:'Times New Roman','华文宋体';color: #0c0c0c;text-decoration: none}
+    .l1:link {font-size: 16px;font-family:'Times New Roman','华文宋体';color: #0c0c0c;text-decoration: none}
+    .l1:visited {font-size: 16px;font-family:'Times New Roman','华文宋体';color: #0c0c0c;text-decoration: none}
+    .l1:hover {font-size: 16px;font-family:'Times New Roman','华文宋体';text-decoration: underline;color: darkblue}
+    .l1:active {font-size: 16px;font-family:'Times New Roman','华文宋体';color: #0c0c0c;text-decoration: underline}
+  </style>
+
 </head>
 
 <body>
@@ -165,7 +174,7 @@
           <!-- 下面是两个统计功能 -->
             <!-- /# row -->
           <div class="row" STYLE="width: 100%">
-            <div class="col-lg-6">
+            <div class="col-lg-4">
               <div class="card">
                 <div class="card-title">
                   <h4>发表文献最多的作者</h4>
@@ -176,11 +185,47 @@
                     <table class="table table-hover" id = "Favour_author">
                       <thead>
                       <tr>
+                        <th style="width: 10%">ranking</th>
                         <th>Author_Name</th>
                       </tr>
                       <tr>
                         <th>
-                          <a herf = "localhost/searchpaper.html?author=Alain_De_Beuckelaer">Alain De Beuckelaer</a>
+                          1
+                        </th>
+                        <th>
+                          <a class='l1' href = "http://localhost/searchpaper.html?author=Alain De Beuckelaer">Alain De Beuckelaer</a>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th>
+                          2
+                        </th>
+                        <th>
+                          <a class = 'l1' href = "http://localhost/searchpaper.html?author=David West">David West</a>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th>
+                          3
+                        </th>
+                        <th>
+                          <a class = 'l1' href = "http://localhost/searchpaper.html?author=Frederik Anseel">Frederik Anseel</a>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th>
+                          4
+                        </th>
+                        <th>
+                          <a class = 'l1' href = "http://localhost/searchpaper.html?author=Katia Levecque">Katia Levecque</a>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th>
+                          5
+                        </th>
+                        <th>
+                          <a class = 'l1' href = "http://localhost/searchpaper.html?author=Johan Van der Heyden">Johan Van der Heyden</a>
                         </th>
                       </tr>
                       </thead>
@@ -195,11 +240,11 @@
               </div>
             </div>
             <!-- /# column -->
-            <div class="col-lg-6">
+            <div class="col-lg-8">
               <div class="card">
                 <div class="card-title">
-                  <h4>发表论文数最多的机构 </h4>
-                  <h5>点击机构查看相关文献 </h5>
+                  <h4>收藏量排行榜</h4>
+                  <h5>点击文献查看详情</h5>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
@@ -227,21 +272,21 @@
             <div class="col-lg-6">
               <div class="card">
                 <div class="card-title">
-                  <h4>收藏量排行榜</h4>
-                  <h5>点击文献查看详情</h5>
+                  <h4>发表论文数最多的机构 </h4>
+                  <h5>点击机构查看相关文献 </h5>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
                     <table class="table table-hover ">
                       <thead>
-                        <tr>
-                          <th>paper_Name</th>
-                        </tr>
+                      <tr>
+                        <th>paper_Name</th>
+                      </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td></td>
-                        </tr>
+                      <tr>
+                        <td></td>
+                      </tr>
                       </tbody>
                     </table>
                   </div>
