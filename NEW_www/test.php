@@ -89,8 +89,11 @@
     //echo $j_time;
     //echo '<br>';
     //echo $jplace;
-    $keywordarray = preg_split("/;/",$keywordsstring);  //得到一个数组，每个元素都是一个关键词
-    $keywordcount = count($keywordarray);   //关键词数量
+    $keywordcount = 0;
+    if($keywordsstring){
+        $keywordarray = preg_split("/;/",$keywordsstring);  //得到一个数组，每个元素都是一个关键词
+        $keywordcount = count($keywordarray);   //关键词数量
+    }
     echo $keywordcount;
     echo '<br>';
     echo $keywordarray[0];

@@ -5,7 +5,7 @@
 
     session_start();
     //$username = $_SESSION['username'];
-    //$userid = base64_encode($username);//查找此姓名对应的id
+    //$name_encoded = base64_encode($username);   //查找此姓名对应的id
     $name_encoded = session_id(); 
     $uidsql = "SELECT * FROM user WHERE username = '$name_encoded'";
     $uidres = $conn->query($uidsql);

@@ -7,7 +7,7 @@
     $authorstring = $_POST['author'];   //有很多个作者
     $institutionstring = $_POST['institution']; //有很多个单位，每个作者对应一个长字符串
     $keywordsstring = $_POST['keywords'];   //字符串，有很多个关键词，用分号隔开
-    $publish_date = $_POST['publish_date'];  //字符串，8位数字，需转换为datetime类型
+    $publish_date = $_POST['publish_date']; //字符串，8位数字，需转换为datetime类型
     $jname = $_POST['pname'];
     $j_time = $_POST['jtime'];   //字符串，8位数字，需转换为datetime类型
     $jplace = $_POST['jplace'];
@@ -15,9 +15,12 @@
     //author和instituition信息只能得到最后一条记录，其他所有问题都已解决
 
     $available_date = substr($publish_date,0,4) . "-" . substr($publish_date,4,2) . "-" . substr($publish_date,6,2) . " " . '00:00:00';
-    $jtime = substr($j_time,0,4) . "-" . substr($j_time,4,2) . "-" . substr($j_time,6,2) . " " . '00:00:00';
-    $keywordarray = preg_split("/;/",$keywordsstring);  //按照分号拆分字符串，得到一个数组，每个元素都是一个关键词
-    $keywordcount = count($keywordarray);   //关键词数量
+    $jtime = substr($j_time,0,4) . "-" . substr($j_time,4,2) . "-" . substr($j_time,6,2) . " " . '00:00:00';    
+    $keywordcount = 0;
+    if($keywordsstring){
+        $keywordarray = preg_split("/;/",$keywordsstring);  //得到一个数组，每个元素都是一个关键词
+        $keywordcount = count($keywordarray);   //关键词数量
+    }
 
     //将属于paper表的信息插入paper表
     $add_into_paper_sql = "INSERT INTO `paper` (`name`, `available_date`, `jname`, `jtime`, `jplace`) VALUES ('$papername', '$available_date', '$jname', '$jtime', '$jplace')";
