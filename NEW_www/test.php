@@ -48,6 +48,25 @@
     $authorcount = $_POST['total_au'];
     echo $authorcount;
     echo '<br>';
+    //每个作者对应一个长字符串的单位信息，用循环语句得到
+    $authorarray = $_POST['author'];
+    $institutionarray = $_POST['institution'];
+    echo $authorarray[0];
+    echo $institutionarray[0];
+    echo '<br>';
+    echo $authorarray[1];
+    echo $institutionarray[1];
+    echo '<br>';  
+    /*$institutionarray = array();
+    for($i=0; $i < $authorcount; $i++){
+        $string1 = (string)($i+1);
+        $authorarray[$i] = $_POST['author' . "" . $string1 ];
+        echo $authorarray[$i];
+        $instiutionarray[$i] = $_POST['institution' . "" . $string1 ];
+        echo $institutionarray[$i];
+        echo '<br>';
+    }*/
+    echo '<br>';
     echo $papername;
     echo '<br>';
     $timesql = "SELECT DATE_FORMAT(NOW(), '%Y-%m-%d %h:%i:%s')";
