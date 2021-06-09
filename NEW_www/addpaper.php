@@ -4,14 +4,15 @@
     include 'connect.php';     //调用数据库连接文件
 
     $papername = $_POST['paper_name'];
-    $authorstring = $_POST['author'];   //字符串，有很多个作者，用分号隔开
-    $institutionstring = $_POST['institution']; //字符串，有很多个单位，用分号隔开
+    $authorstring = $_POST['author'];   //有很多个作者
+    $institutionstring = $_POST['institution']; //有很多个单位，每个作者对应一个长字符串
     $keywordsstring = $_POST['keywords'];   //字符串，有很多个关键词，用分号隔开
     $publish_date = $_POST['publish_date'];  //字符串，8位数字，需转换为datetime类型
     $jname = $_POST['pname'];
     $j_time = $_POST['jtime'];   //字符串，8位数字，需转换为datetime类型
     $jplace = $_POST['jplace'];
-    //author instituition信息只能得到最后一条记录，其他所有问题都已解决
+
+    //author和instituition信息只能得到最后一条记录，其他所有问题都已解决
 
     $available_date = substr($publish_date,0,4) . "-" . substr($publish_date,4,2) . "-" . substr($publish_date,6,2) . " " . '00:00:00';
     $jtime = substr($j_time,0,4) . "-" . substr($j_time,4,2) . "-" . substr($j_time,6,2) . " " . '00:00:00';
@@ -29,7 +30,8 @@
 
     //向author表中插入记录
     for($i=0; $i < ; $i++){
-
+        $add_into_author_sql = "INSERT INTO `author` (`pid`, `name`, `institution`) VALUES ('$pid', '$authorarray[i]', '$institutionarray[i]')";
+        $add_into_author_res = $conn->query($add_into_keyword_sql);
     }
 
     //向keyword表中插入记录
