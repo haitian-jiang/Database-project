@@ -48,6 +48,8 @@
     $authorcount = $_POST['total_au'];
     echo $authorcount;
     echo '<br>';
+    echo $papername;
+    echo '<br>';
     $timesql = "SELECT DATE_FORMAT(NOW(), '%Y-%m-%d %h:%i:%s')";
     $timeres = $conn->query($timesql);
     $time = $timeres->fetch_row();
