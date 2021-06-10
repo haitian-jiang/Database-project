@@ -103,7 +103,6 @@ function author_info(author,id){
 
 function collect_paper(obj) {
 	$.post("add_collection.php", {paper_id:obj} ,function(status) {
-		alert(status);
 		if (status == '1') {
 			alert("您已成功收藏该论文");
 		}
