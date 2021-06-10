@@ -2,6 +2,7 @@ var main_json = [{"total_num" : 0}];
 
 $(window).load(function(){
 	$.post("show_collection.php", ,function(json){
+		alert(json);
 		if(response_text == "PC404")
 			main_json = [{"total_num": 0}];
 		else{

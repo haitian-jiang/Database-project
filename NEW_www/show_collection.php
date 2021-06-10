@@ -4,9 +4,8 @@
     include 'connect.php';     //调用数据库连接文件
 
     session_start();
-    //$username = $_SESSION['username'];
-    //$name_encoded = base64_encode($username);   //查找此姓名对应的id
-    $name_encoded = session_id(); 
+    $username = $_SESSION['username'];
+    $name_encoded = base64_encode($username);   //查找此姓名对应的id
     $uidsql = "SELECT * FROM user WHERE username = '$name_encoded'";
     $uidres = $conn->query($uidsql);
     $uidrow = $uidres->fetch_object();
@@ -21,7 +20,7 @@
     else{
         $paper_amount = count($row);
         for ($i=0; $i < $paper_amount; $i++){ 
-            $pid = $row[$i]['id'];
+            $pid = $row[$i]['pid'];
             $paperinfosql = "SELECT name,available_date,jname FROM paper WHERE id = '$pid'";
             $paperinfores = $conn->query($paperinfosql);
             $paperinforow = $paperinfores->fetch_object();
@@ -31,7 +30,7 @@
             $authorinfores = $conn->query($authorinfosql);
             $authorinforow = $authorinfores->fetch_all(MYSQLI_ASSOC);
             $row[$i]['author'] = $authorinforow;
-            $row[$i]['publish_date'] = $paperinforow->available_date;
+            $row[$i]['publish_date'] = substr($paperinforow->available_date,0,10);
             $row[$i]['jname'] = $paperinforow->jname;
         }
         echo json_encode($row);

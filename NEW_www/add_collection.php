@@ -6,8 +6,7 @@
     $pid = $_POST['paper_id'];     //接收前台post值
     session_start();
     $username = $_SESSION['username'];
-    $name_encoded = base64_encode($username);
-    //echo $name_encoded;   
+    $name_encoded = base64_encode($username);  
     $uidsql = "SELECT * FROM user WHERE username = '$name_encoded'";
     $uidres = $conn->query($uidsql);
     $uidrow = $uidres->fetch_object();
