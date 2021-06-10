@@ -141,5 +141,16 @@
     //$name_encoded = base64_encode($username);
     //$name_encoded = session_id(); 
     //echo $name_encoded;
-    echo "hello world";
+    //echo "hello world";
+    $uidsql = "SELECT * FROM user WHERE username = 'aHV5aWZhbg=='";
+    $uidres = $conn->query($uidsql);
+    $row = $uidres->fetch_all(MYSQLI_ASSOC);
+    //$count = count($uidres);
+    if($row == NULL){
+        echo '1';
+    }
+    else{
+        echo '0';
+    }
+    //echo $count;
 ?>
