@@ -1,8 +1,7 @@
 var main_json = [{"total_num" : 0}];
 
 $(window).load(function(){
-	$.post("show_collection.php", ,function(json){
-		alert(json);
+	$.post("show_collection.php",function(response_text){
 		if(response_text == "PC404")
 			main_json = [{"total_num": 0}];
 		else{
@@ -41,7 +40,7 @@ function deviceprop1_write_table(m){
 		tr[i] = document.createElement("tr");
 		num = document.createElement("td");
 		num.innerHTML = '<input type="checkbox" style = "height: 20px; width: 100%" name = "exploit_document"/>'+
-			'<button class="btn btn-default" style = "height: 20px; width: 100%; font-weight: bold" onclick="drop_paper('+main_json[i].id+')"></button>';
+			'<button class="btn btn-default" style = "height: 20px; width: 100%" onclick="drop_paper(this)" value ='+main_json[i].id+'></button>';
 		//论文题目
 		paper_name = document.createElement("td");
 		paper_name.innerHTML = "<a class='l1' herf = '#' onclick='show_keywords("+main_json[i].id+")'>"+main_json[i].paper_name+"</a>";
@@ -103,9 +102,9 @@ function author_info(author,id){
 function drop_paper(obj) {
 	var isDelete=confirm("真的要删除吗？");
 	if(isDelete){
-		id = obj.value();
-		$.post("delete_collection", { paper_id:id} ,function(status) {
-			if (status == 1) {
+		id = obj.value;
+		$.post("delete_collection.php", { paper_id:id} ,function(status) {
+			if (status == true) {
 					alert("您已成功删除该论文");
 					var tr=obj.parentNode.parentNode;
 					var tbody=tr.parentNode;

@@ -5,9 +5,8 @@
 
     $pid = $_POST['paper_id'];     //接收前台post值
     session_start();
-    //$username = $_SESSION['username'];
-    //$name_encoded = base64_encode($username);   //查找此姓名对应的id
-    $name_encoded = session_id(); 
+    $username = $_SESSION['username'];
+    $name_encoded = base64_encode($username);   //查找此姓名对应的id
     $uidsql = "SELECT * FROM user WHERE username = '$name_encoded'";
     $uidres = $conn->query($uidsql);
     $uidrow = $uidres->fetch_object();
@@ -16,9 +15,9 @@
     $deletesql = "DELETE FROM favourite WHERE uid = '$uid' and pid = '$pid'"; //删除指定用户id和论文id的记录
     $send = $conn->query($deletesql);   //从favourite表中删除这条记录
     if ($send)
-        return TRUE;
+        return true;
     else
-        return FALSE;
+        return false;
 
     //是否需要在前端页面立即删除这条收藏记录,如需要，更新前端信息
     /*$sql = "SELECT * FROM favourite WHERE uid = '$name_encoded'";
