@@ -1,8 +1,7 @@
 var main_json = [{"total_num" : 0}];
 
 $(window).load(function(){
-	$.getJSON("server.php", function(json){
-		refresh_main_table();
+	$.post("show_collection.php", ,function(json){
 		if(response_text == "PC404")
 			main_json = [{"total_num": 0}];
 		else{
@@ -17,13 +16,7 @@ $(window).load(function(){
 		deviceprop1_write_table(main_json[0].total_num);
 	});
 });
-
 /*
-(function(response_text)	{
-		//	alert(response_text);
-
-	});
- */
 function refresh_main_table(){
 	var tab =document.getElementById("deviceprop1_main_table");
 	var tr=tab.getElementsByTagName("tr");
@@ -32,6 +25,7 @@ function refresh_main_table(){
 		tab.removeChild(tr[i]);
 	}
 }
+*/
 
 function deviceprop1_show_total(){
 	document.getElementById('deviceprop1_total').innerHTML = '总共查询到<b>' + main_json[0].total_num +'</b>文献';
@@ -49,21 +43,21 @@ function deviceprop1_write_table(m){
 			'<button class="btn btn-default" style = "height: 20px; width: 100%; font-weight: bold" onclick="drop_paper('+main_json[i].id+')"></button>';
 		//论文题目
 		paper_name = document.createElement("td");
-		paper_name.innerHTML = "<a herf = '#' onclick='show_keywords("+main_json[i].id+")'>"+main_json[i].paper_name+"</a>";
+		paper_name.innerHTML = "<a class='l1' herf = '#' onclick='show_keywords("+main_json[i].id+")'>"+main_json[i].paper_name+"</a>";
 		//作者(需要大改)
 		author = document.createElement("td");
 		//添加作者的个人信息
 		author_lists = main_json[i].author;
 		Auhtorlen = author_lists.length;
 		for(var j = 0 ; j != Auhtorlen ; j++){
-			author.innerHTML = author.innerHTML + "<a herf = '', onclick=\"author_info('"+author_lists[j].name+"',"+main_json[i].id+")\">"+ author_lists[j].name + "</a> ;";
+			author.innerHTML = author.innerHTML + "<a class =‘l1’ herf = '#', onclick=\"author_info('"+author_lists[j].name+"',"+main_json[i].id+")\">"+ author_lists[j].name + "</a> ;";
 			//发行时间
 		}
 		publish_date = document.createElement("td");
 		publish_date.innerHTML = main_json[i].publish_date;
 		//期刊
 		jname = document.createElement("td");
-		jname.innerHTML = "<a herf = '#' onclick='show_jinfo("+main_json[i].id+")'>" + main_json[i].jname + "</a>";
+		jname.innerHTML = "<a class='l1' herf = '#' onclick='show_jinfo("+main_json[i].id+")'>" + main_json[i].jname + "</a>";
 		tab.appendChild(tr[i]);
 		tr[i].appendChild(num);
 		tr[i].appendChild(paper_name);
