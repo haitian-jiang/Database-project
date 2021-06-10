@@ -142,7 +142,7 @@
     //$name_encoded = session_id(); 
     //echo $name_encoded;
     //echo "hello world";
-    $uidsql = "SELECT * FROM user WHERE username = 'aHV5aWZhbg=='";
+    /*$uidsql = "SELECT * FROM user WHERE username = 'aHV5aWZhbg=='";
     $uidres = $conn->query($uidsql);
     $row = $uidres->fetch_all(MYSQLI_ASSOC);
     //$count = count($uidres);
@@ -153,5 +153,16 @@
         echo '0';
     }
     //echo $count;
-    echo base64_decode('aHV5aWZhbg==');
+    echo base64_decode('aHV5aWZhbg==');*/
+    $timesql = "SELECT DATE_FORMAT(NOW(), '%Y-%m-%d %h:%i:%s')";
+    $timeres = $conn->query($timesql);
+    $time = $timeres->fetch_row();
+    $time = $time[0];   //获取添加的时间
+    
+    $insertsql = "INSERT favourite (`uid`, `pid`, `collect_time`) VALUES ('2', '31', '$time')";
+    $send = $conn->query($insertsql);   //向favourite表中添加这条记录
+    if ($send)
+        echo '1';
+    else
+        echo '0';
 ?>

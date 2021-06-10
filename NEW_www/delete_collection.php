@@ -15,9 +15,9 @@
     $deletesql = "DELETE FROM favourite WHERE uid = '$uid' and pid = '$pid'"; //删除指定用户id和论文id的记录
     $send = $conn->query($deletesql);   //从favourite表中删除这条记录
     if ($send)
-        echo true;
+        echo '1';
     else
-        echo false;
+        echo '0';
 
     //是否需要在前端页面立即删除这条收藏记录,如需要，更新前端信息
     /*$sql = "SELECT * FROM favourite WHERE uid = '$name_encoded'";

@@ -40,7 +40,7 @@ function deviceprop1_write_table(m){
 		tr[i] = document.createElement("tr");
 		num = document.createElement("td");
 		num.innerHTML = '<input type="checkbox" style = "height: 20px; width: 100%" name = "exploit_document"/>'+
-			'<button class="btn btn-default" style = "height: 20px; width: 100%" onclick="drop_paper(this)" value ='+main_json[i].id+'></button>';
+			'<input type = "button" class="btn btn-default" style = "height: 20px; width: 100%" onclick="drop_paper(this)" value ="'+main_json[i].id+'"/>';
 		//论文题目
 		paper_name = document.createElement("td");
 		paper_name.innerHTML = "<a class='l1' herf = '#' onclick='show_keywords("+main_json[i].id+")'>"+main_json[i].paper_name+"</a>";
@@ -104,7 +104,7 @@ function drop_paper(obj) {
 	if(isDelete){
 		id = obj.value;
 		$.post("delete_collection.php", { paper_id:id} ,function(status) {
-			if (status == true) {
+			if (status == 1) {
 					alert("您已成功删除该论文");
 					var tr=obj.parentNode.parentNode;
 					var tbody=tr.parentNode;

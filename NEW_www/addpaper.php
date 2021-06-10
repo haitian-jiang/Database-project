@@ -39,10 +39,9 @@
         $add_into_keyword_sql = "INSERT INTO `keyword` (`pid`, `keyword`) VALUES ('$pid', '$keywordarray[$i]')";
         $add_into_keyword_res = $conn->query($add_into_keyword_sql);
     }
-
     if($pid)
-        return TRUE;
+        echo '1';
     else
-        return FALSE;
+        echo '0';
 
 ?>

@@ -41,7 +41,7 @@ function deviceprop1_write_table(m){
 		tr[i] = document.createElement("tr");
 		num = document.createElement("td");
 		num.innerHTML = '<input type="checkbox" style = "height: 20px; width: 100%" name = "exploit_document"/>'+
-			'<button class="btn btn-default" style = "height: 20px; width: 100%; font-weight: bold" onclick="collect_paper('+main_json[i].id+')"></button>';
+			'<input type = "button" class="btn btn-default" style = "height: 20px; width: 100%; font-weight: bold" onclick="collect_paper('+main_json[i].id+')"/>';
 		//论文题目
 		paper_name = document.createElement("td");
 		paper_name.innerHTML = "<a class='l1' href = '#' onclick='show_keywords("+main_json[i].id+")'>"+main_json[i].paper_name+"</a>";
@@ -103,7 +103,8 @@ function author_info(author,id){
 
 function collect_paper(obj) {
 	$.post("add_collection.php", {paper_id:obj} ,function(status) {
-		if (status == 1) {
+		alert(status);
+		if (status == '1') {
 			alert("您已成功收藏该论文");
 		}
 		else {

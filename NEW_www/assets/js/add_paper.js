@@ -1,15 +1,14 @@
-/*
 $(function(){
-	$("#devicepropman_add").ajaxForm(function(response_text)
-	{
-		var zz = /success/i;
-		if (zz.test(response_text))
-			swal(response_text, "信息添加成功！", "success");
-		else
-			swal(response_text, "信息添加失败，请检查您的输入！", "error");
+	$("#devicepropman_add").ajaxForm(function(status){
+		if (status == '1') {
+			alert("您已成功上传该论文");
+		}
+		else {
+			alert("对不起，添加失败");
+		}
 	});
 });
- */
+
 
 var tab = document.getElementById("author-institution");
 
