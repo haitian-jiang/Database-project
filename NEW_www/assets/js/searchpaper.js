@@ -51,7 +51,7 @@ function deviceprop1_write_table(m){
 		author_lists = main_json[i].author;
 		Auhtorlen = author_lists.length;
 		for(var j = 0 ; j != Auhtorlen ; j++){
-			author.innerHTML = author.innerHTML + "<a class='l1' href = '', onclick=\"author_info('"+author_lists[j].name+"',"+main_json[i].id+")\">"+ author_lists[j].name + "</a> ;";
+			author.innerHTML = author.innerHTML + "<a class='l1' href = '#', onclick=\"author_info('"+author_lists[j].name+"',"+main_json[i].id+")\">"+ author_lists[j].name + "</a> ;";
 		//发行时间
 		}
 		publish_date = document.createElement("td");
@@ -67,6 +67,7 @@ function deviceprop1_write_table(m){
 		tr[i].appendChild(jname);
 	}
 }
+
 function show_keywords(obj){
 	$.post("show_keyword.php", { paper_id:obj} ,function(data) {
 		var raw_json = data;
@@ -102,7 +103,7 @@ function author_info(author,id){
 
 function collect_paper(obj) {
 	$.post("add_collection.php", {paper_id:obj} ,function(status) {
-		if (status == true) {
+		if (status == 1) {
 			alert("您已成功收藏该论文");
 		}
 		else {
@@ -125,6 +126,7 @@ $(window).load(function(){
 	var kw = getQueryVariable("keywords");
 	var pn = getQueryVariable("paper_name");
 	var au = getQueryVariable("author");
+	var ins = getQueryVariable("insitution");
 	if (kw != false){
 		$.post("searchpaper.php", {method:"keywords",usr_input:kw} ,function(response_text) {
 			alert(response_text);
@@ -165,6 +167,25 @@ $(window).load(function(){
 	else if (au != false){
 		au = au.replace(/%20/g,"\40");
 		$.post("searchpaper.php", {method:"author",usr_input:au} ,function(response_text) {
+			//	alert(response_text);
+			refresh_main_table();
+			if(response_text == "PC404")
+				main_json = [{"total_num": 0}];
+			else{
+				//		alert(response_text);
+				raw_json = response_text;
+				main_json = JSON.parse(raw_json);
+				t = main_json.length;
+				var fir = {"total_num" : t};
+				main_json.unshift(fir);
+			}
+			deviceprop1_show_total();
+			deviceprop1_write_table(main_json[0].total_num);
+		});
+	}
+	else if (ins != false){
+		ins = ins.replace(/%20/g,"\40");
+		$.post("searchpaper.php", {method:"institution",usr_input:ins} ,function(response_text) {
 			//	alert(response_text);
 			refresh_main_table();
 			if(response_text == "PC404")
