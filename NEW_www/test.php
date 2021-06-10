@@ -135,10 +135,11 @@
     echo '<br>';
     echo $password;
     header("location:index.html");*/
-    header("location:index.html");
+    //header("location:index.html");
     //session_start();
     //$username = $_SESSION['username'];
     //$name_encoded = base64_encode($username);
     //$name_encoded = session_id(); 
     //echo $name_encoded;
+    echo "hello world";
 ?>

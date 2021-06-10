@@ -7,10 +7,6 @@
     $res = $conn->query($sql);
     $row = $res->fetch_all(MYSQLI_ASSOC);
     for($i=0; $i<5; $i++){
-        if($row[$i]['pid']){
-            $row[$i]['id'] = $i + 1;
-        }
-        //echo $row[$i]['id'];
         $pid = $row[$i]['pid'];
         $paperinfosql = "SELECT name FROM paper WHERE id = '$pid'";
         $paperinfores = $conn->query($paperinfosql);

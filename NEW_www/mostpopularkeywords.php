@@ -6,11 +6,11 @@
     $sql = "SELECT keyword,COUNT(*) AS keywordcount FROM keyword GROUP BY keyword ORDER BY keywordcount DESC limit 5";
     $res = $conn->query($sql);
     $row = $res->fetch_all(MYSQLI_ASSOC);
-    for($i=0; $i<5; $i++){
+    /*for($i=0; $i<5; $i++){
         $row[$i]['id'] = $i + 1;
-        //echo $row[$i]['id'];
-        //echo $row[$i]['keyword'];
-        //echo '<br>';
-    }
-    echo json_encode($row); //返还格式：id(序号),keyword(关键词)
+        echo $row[$i]['id'];
+        echo $row[$i]['keyword'];
+        echo '<br>';
+    }*/
+    echo json_encode($row); //keyword(关键词)
 ?>

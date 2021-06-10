@@ -129,7 +129,6 @@ $(window).load(function(){
 	var ins = getQueryVariable("insitution");
 	if (kw != false){
 		$.post("searchpaper.php", {method:"keywords",usr_input:kw} ,function(response_text) {
-			alert(response_text);
 			refresh_main_table();
 			if(response_text == "PC404")
 				main_json = [{"total_num": 0}];
