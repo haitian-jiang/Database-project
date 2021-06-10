@@ -1,5 +1,5 @@
 $(function(){
-	$("#devicepropman_add").ajaxForm(function(status){
+	$("#add_paper").ajaxForm(function(status){
 		if (status == '1') {
 			alert("您已成功上传该论文");
 		}
