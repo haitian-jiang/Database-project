@@ -42,8 +42,7 @@ function literature_write_table(m){
 		num.innerHTML = i
 		//论文题目
 		paper_name = document.createElement("td");
-		paper_link = "http://localhost/searchpaper.html?paper_name="+main_json[i].paper_name;
-		paper_name.innerHTML = "<a class='l1' href = "+paper_link+">"+main_json[i].paper_name+"</a>";
+		paper_name.innerHTML = "<a class='l1' href = 'http://localhost/searchpaper.html?paper_name="+main_json[i].paper_name+"'>"+main_json[i].paper_name+"</a>";
 		tab1.appendChild(tr[i]);
 		tr[i].appendChild(num);
 		tr[i].appendChild(paper_name);
@@ -60,8 +59,7 @@ function keywords_write_table(m){
 		num.innerHTML = i
 		//关键字
 		keywords = document.createElement("td");
-		paper_link = "http://localhost/searchpaper.html?keywords="+main_json[i].keyword;
-		keywords.innerHTML = "<a class='l1' href = "+paper_link+">"+main_json[i].keyword+"</a>";
+		keywords.innerHTML = "<a class='l1' href = 'http://localhost/searchpaper.html?keywords="+main_json[i].keyword+"'>"+main_json[i].keyword+"</a>";
 		tab2.appendChild(tr[i]);
 		tr[i].appendChild(num);
 		tr[i].appendChild(keywords);

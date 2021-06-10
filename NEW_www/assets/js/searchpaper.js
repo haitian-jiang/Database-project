@@ -128,6 +128,7 @@ $(window).load(function(){
 	var au = getQueryVariable("author");
 	var ins = getQueryVariable("insitution");
 	if (kw != false){
+		kw=kw.replace(/%20/g,"\40")
 		$.post("searchpaper.php", {method:"keywords",usr_input:kw} ,function(response_text) {
 			refresh_main_table();
 			if(response_text == "PC404")
@@ -145,7 +146,7 @@ $(window).load(function(){
 		});
 	}
 	else if (pn != false){
-		pn=pn.replace("%20","\40")
+		pn=pn.replace(/%20/g,"\40")
 		$.post("searchpaper.php", {method:"paper_name",usr_input:pn} ,function(response_text) {
 			//	alert(response_text);
 			refresh_main_table();
