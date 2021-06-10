@@ -20,7 +20,7 @@
     $insertsql = "INSERT favourite (`uid`, `pid`, `collect_time`) VALUES ('$uid', '$pid', '$time')";
     $send = $conn->query($insertsql);   //向favourite表中添加这条记录
     if ($send)
-        echo true;
+        echo '1';
     else
-        echo false;
+        echo '0';
 ?>
