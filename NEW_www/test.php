@@ -154,7 +154,7 @@
     }
     //echo $count;
     echo base64_decode('aHV5aWZhbg==');*/
-    $timesql = "SELECT DATE_FORMAT(NOW(), '%Y-%m-%d %h:%i:%s')";
+    /*$timesql = "SELECT DATE_FORMAT(NOW(), '%Y-%m-%d %h:%i:%s')";
     $timeres = $conn->query($timesql);
     $time = $timeres->fetch_row();
     $time = $time[0];   //获取添加的时间
@@ -164,5 +164,7 @@
     if ($send)
         echo '1';
     else
-        echo '0';
+        echo '0';*/
+    $str = 'c3tv65iqc6h8nqb67u8hq2e1np';
+    echo base64_encode($str);
 ?>

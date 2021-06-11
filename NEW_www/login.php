@@ -15,7 +15,6 @@
         $selres=$conn->query($selsql);
         $selrow=$selres->fetch_object();
         if ($selrow->username == $username){
-			echo "登录成功<br>";
 			if (empty($_COOKIE['PHPSESSID'])) {
  				session_set_cookie_params($expire);
  				session_start();
@@ -30,7 +29,7 @@
             else{
  				$_SESSION['username'] = $_POST['username'];
  			}
-            header("location:index.html");
+            echo "<script> alert('登录成功');parent.location.href='index.html'; </script>";
         }
         else{
 			echo "<script>alert('LOGIN ERROR');history.back();</script>";
