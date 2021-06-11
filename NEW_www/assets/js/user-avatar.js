@@ -8,7 +8,7 @@ $(window).load(function() {
                 });
         }
         else
-            document.getElementById('user-avatar').innerHTML = '<div class="header-icon user-avatar">欢迎您，' + username + '</div>';
+            document.getElementById('user-avatar').innerHTML = '<div>欢迎您，' + username + '</div>';
     });
 })
 
