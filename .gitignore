@@ -1,6 +1,12 @@
 .DS_Store
 www/connect.php
+NEW_www/connect.php
 pipelines.py
 autounit/
 __pycache__/
 .ipynb_checkpoints/
+~$*
+.idea/
+upload/
+log.txt
+output.txt
