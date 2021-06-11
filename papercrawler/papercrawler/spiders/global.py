@@ -11,8 +11,8 @@ class GlobalSpider(Spider):
     name = "global"
     allowed_domains = ["sciencedirect.com"]
     start_urls = [f"https://www.sciencedirect.com/browse/"\
-    			 "journals-and-books?page={i}&contentType=JL&subject={PAPER_TOPIC}" \
-    			 for i in range(JOURNAL_HEAD, JOURNAL_TAIL + 1)]
+                 "journals-and-books?page={i}&contentType=JL&subject={PAPER_TOPIC}" \
+                 for i in range(JOURNAL_HEAD, JOURNAL_TAIL + 1)]
 
     def parse(self, response):
         journals = response.xpath("//a[@class='anchor js-publication-title']//@href").getall()
