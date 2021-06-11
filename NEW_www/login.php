@@ -4,7 +4,6 @@
     include 'connect.php';     //调用数据库连接文件
     $username = base64_encode($_POST['username']);
     $password = base64_encode($_POST['password']);
-
     if ($username == "" || $password == "")      //判断用户名和密码是否为空
     {
 		echo "<script>alert('输入格式错误');history.back();</script>";
@@ -14,6 +13,8 @@
 		$selsql="SELECT username,password FROM user WHERE username = '$username' AND password='$password'";
         $selres=$conn->query($selsql);
         $selrow=$selres->fetch_object();
+        ini_set('session.gc_maxlifetime', 3600);
+        $expire = ini_get('session.gc_maxlifetime');
         if ($selrow->username == $username){
 			if (empty($_COOKIE['PHPSESSID'])) {
  				session_set_cookie_params($expire);
@@ -29,10 +30,11 @@
             else{
  				$_SESSION['username'] = $_POST['username'];
  			}
+            session_start();
             echo "<script> alert('登录成功');parent.location.href='index.html'; </script>";
         }
         else{
-			echo "<script>alert('LOGIN ERROR');history.back();</script>";
+			echo "<script>alert('账号密码错误');history.back();</script>";
 		}
 
     }
