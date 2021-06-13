@@ -10,8 +10,7 @@ from papercrawler.settings import PAPER_TOPIC, JOURNAL_HEAD, JOURNAL_TAIL, VOLUM
 class GlobalSpider(Spider):
     name = "global"
     allowed_domains = ["sciencedirect.com"]
-    start_urls = [f"https://www.sciencedirect.com/browse/"\
-                 "journals-and-books?page={i}&contentType=JL&subject={PAPER_TOPIC}" \
+    start_urls = [f"https://www.sciencedirect.com/browse/journals-and-books?page={i}&contentType=JL&subject={PAPER_TOPIC}" \
                  for i in range(JOURNAL_HEAD, JOURNAL_TAIL + 1)]
 
     def parse(self, response):

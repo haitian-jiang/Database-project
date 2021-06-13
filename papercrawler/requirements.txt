@@ -1,0 +1,12 @@
+fake-useragent
+scrapy
+scrapy-splash
+pika
+peewee
+requests
+pytest
+python-dateutil
+scrapy_autounit
+psycopg2-binary
+js2xml
+pymysql
