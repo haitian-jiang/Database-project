@@ -3,7 +3,11 @@
     error_reporting(E_ALL &~ E_NOTICE);     //屏蔽错误信息
     include 'connect.php';     //调用数据库连接文
     session_start();
-    $username = $_SESSION['username'];
     //$name_encoded = base64_encode($username);   //查找此姓名对应的id
-    echo $username;
+    if( isset($_SESSION['username']) ){
+        echo $_SESSION['username'];
+    }
+    else{
+        echo "NULL";
+    }
 ?>
