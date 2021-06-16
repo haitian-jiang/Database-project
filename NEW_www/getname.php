@@ -8,6 +8,6 @@
         echo $_SESSION['username'];
     }
     else{
-        echo "NULL";
+        echo "";
     }
 ?>
