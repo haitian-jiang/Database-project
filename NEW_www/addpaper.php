@@ -13,8 +13,12 @@
     $j_time = $_POST['jtime'];   //字符串，8位数字，需转换为datetime类型
     $jplace = $_POST['jplace'];
 
-    $available_date = substr($publish_date,0,4) . "-" . substr($publish_date,4,2) . "-" . substr($publish_date,6,2) . " " . '00:00:00';
-    $jtime = substr($j_time,0,4) . "-" . substr($j_time,4,2) . "-" . substr($j_time,6,2) . " " . '00:00:00';    
+    if($available_date != ""){
+        $available_date = substr($publish_date,0,4) . "-" . substr($publish_date,4,2) . "-" . substr($publish_date,6,2) . " " . '00:00:00';
+    }
+    if($j_time != ""){
+        $jtime = substr($j_time,0,4) . "-" . substr($j_time,4,2) . "-" . substr($j_time,6,2) . " " . '00:00:00'; 
+    }   
     $keywordcount = 0;
     if($keywordsstring){
         $keywordarray = preg_split("/;/",$keywordsstring);  //得到一个数组，每个元素都是一个关键词
