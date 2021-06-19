@@ -165,6 +165,45 @@
         echo '1';
     else
         echo '0';*/
-    $str = 'c3tv65iqc6h8nqb67u8hq2e1np';
-    echo base64_encode($str);
+    //$str = 'c3tv65iqc6h8nqb67u8hq2e1np';
+    //echo base64_encode($str);
+    $usr_input="work+kjbca=cwqcw-awcq_qcqc;aasc;avwev:cwce*vkb&bclebf(blb)nlnl%scc;wcdnl#ncln2/c2cqx,3c3vv`bkbbk<cwcwc>wdc3v3v.czqde'cl";
+    $usr_inputarray = preg_split('/[\s+]|[\s=]|[\s-]|[\s_]|[\s;]|[\s:]|[\s*]|[\s&]|[\s(]|[\s)]|[\s%]|[\s#]|[\s,]|[\s`]|[\s<]|[\s>]|[\s.]|[\s`&#39`]/',$usr_input);  //处理分号
+    $usr_inputcount = count($usr_inputarray);
+    $proceed = $usr_inputarray[0];
+    for($i=1; $i < $usr_inputcount; $i++)
+    {
+        $proceed = $proceed . "~" . $usr_inputarray[$i];
+    }
+    echo $proceed;
+    /*$sql = "SELECT id FROM paper WHERE name LIKE ?";
+    $stmt = $conn->prepare($sql);
+    //绑定变量
+    $usr_input = "%" . $usr_input . "%";
+    $stmt->bind_param("s", $usr_input);
+    $stmt->execute();
+    $stmt->bind_result($id);
+    $i=0;
+    while ($stmt->fetch()) {
+        $row[$i]['id'] = $id;
+        $i++;
+    }
+    for ($i=0; $i < count($row); $i++){ 
+        $pid = $row[$i]['id'];
+        echo $row[$i]['id'];
+        echo '<br>';
+    }*/
+    $username = base64_encode('abcdefg');
+    $password = base64_encode('abcdefg');
+    $sql = "SELECT username,password FROM user WHERE username = ? AND password=PASSWORD(?)";
+    $stmt = $conn->prepare($sql);
+    //通过绑定变量防止SQL注入
+    $stmt->bind_param("ss", $username,$password);
+    $stmt->execute();
+    $stmt->bind_result($urname,$passwd);
+    while ($stmt->fetch()) {
+        $selrow['username'] = $urname;
+        $selrow['$password'] = $passwd;
+    }
+    //echo $selrow['username'];
 ?>

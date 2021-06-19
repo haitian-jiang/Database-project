@@ -8,11 +8,31 @@
         echo "<script>alert('输入格式错误');history.back();</script>";
     }
     else{
+        /*$usr_inputarray = preg_split("/;/",$usr_input);  //处理分号,防止SQL注入在检索中执行drop等语句
+        $usr_inputcount = count($usr_inputarray);
+        $proceed = $usr_inputarray[0];
+        for($i=1; $i < $usr_inputcount; $i++)
+        {
+            $proceed = $proceed . "~" . $usr_inputarray[$i];
+        }
+        $usr_input = $proceed;*/
         switch ($method) {
             case "paper_name"://用户按照论文名称，即数据库中paper表的name查询
-                $sql = "SELECT * FROM paper WHERE name LIKE '%$usr_input%'";
+                $sql = "SELECT id FROM paper WHERE name LIKE ?";
+                $stmt = $conn->prepare($sql);
+                //通过绑定变量防止SQL注入
+                $usr_input = "%" . $usr_input . "%";
+                $stmt->bind_param("s", $usr_input);
+                $stmt->execute();
+                $stmt->bind_result($id);
+                $i=0;
+                while ($stmt->fetch()) {
+                    $row[$i]['id'] = $id;
+                    $i++;
+                }
+                /*$sql = "SELECT * FROM paper WHERE name LIKE '%$usr_input%'";
                 $res = $conn->query($sql);
-                $row = $res->fetch_all(MYSQLI_ASSOC);
+                $row = $res->fetch_all(MYSQLI_ASSOC);*/
                 if($row == NULL){
                     echo "PC404";
                 }
@@ -37,9 +57,21 @@
                 break;
 
             case "author"://用户按照论文作者，即数据库中author表的name查询
-                $sql = "SELECT pid FROM author WHERE name LIKE '%$usr_input%'";
+                $sql = "SELECT pid FROM author WHERE name LIKE ?";
+                $stmt = $conn->prepare($sql);
+                //通过绑定变量防止SQL注入
+                $usr_input = "%" . $usr_input . "%";
+                $stmt->bind_param("s", $usr_input);
+                $stmt->execute();
+                $stmt->bind_result($pid);
+                $i=0;
+                while ($stmt->fetch()) {
+                    $row[$i]['pid'] = $pid;
+                    $i++;
+                }
+                /*$sql = "SELECT pid FROM author WHERE name LIKE '%$usr_input%'";
                 $res = $conn->query($sql);
-                $row = $res->fetch_all(MYSQLI_ASSOC);
+                $row = $res->fetch_all(MYSQLI_ASSOC);*/
                 if($row == NULL){
                     echo "PC404";
                 }
@@ -64,9 +96,21 @@
                 break;
 
             case "institution"://用户按照单位，即数据库中author表的institution查询
-                $sql = "SELECT * FROM author WHERE institution LIKE '%$usr_input%'";
+                $sql = "SELECT pid FROM author WHERE institution LIKE ?";
+                $stmt = $conn->prepare($sql);
+                //通过绑定变量防止SQL注入
+                $usr_input = "%" . $usr_input . "%";
+                $stmt->bind_param("s", $usr_input);
+                $stmt->execute();
+                $stmt->bind_result($pid);
+                $i=0;
+                while ($stmt->fetch()) {
+                    $row[$i]['pid'] = $pid;
+                    $i++;
+                }
+                /*$sql = "SELECT * FROM author WHERE institution LIKE '%$usr_input%'";
                 $res = $conn->query($sql);
-                $row = $res->fetch_all(MYSQLI_ASSOC);
+                $row = $res->fetch_all(MYSQLI_ASSOC);*/
                 if($row == NULL){
                     echo "PC404";
                 }
@@ -91,9 +135,21 @@
                 break;
 
             case "journal"://用户按照期刊,会议，即数据库中paper表的jname查询
-                $sql = "SELECT * FROM paper WHERE jname LIKE '%$usr_input%'";
+                $sql = "SELECT id FROM paper WHERE jname LIKE ?";
+                $stmt = $conn->prepare($sql);
+                //通过绑定变量防止SQL注入
+                $usr_input = "%" . $usr_input . "%";
+                $stmt->bind_param("s", $usr_input);
+                $stmt->execute();
+                $stmt->bind_result($id);
+                $i=0;
+                while ($stmt->fetch()) {
+                    $row[$i]['id'] = $id;
+                    $i++;
+                }
+                /*$sql = "SELECT * FROM paper WHERE jname LIKE '%$usr_input%'";
                 $res = $conn->query($sql);
-                $row = $res->fetch_all(MYSQLI_ASSOC);
+                $row = $res->fetch_all(MYSQLI_ASSOC);*/
                 if($row == NULL){
                     echo "PC404";
                 }
@@ -120,11 +176,22 @@
             case "publish_date"://用户按照发表日期，即数据库中paper表的available_date查询
                 $j_time = $usr_input;
                 $j_timestring = substr($j_time,0,4) . "-" . substr($j_time,4,2) . "-" . substr($j_time,6,2) . " " . '00:00:00';
-                //$date = strtotime($j_timestring);
-                //$jtime = date('Y-m-d H:i:s', $date);
-                $sql = "SELECT * FROM paper WHERE available_date = '$j_timestring'";
+                //格式化处理完成
+                $sql = "SELECT id FROM paper WHERE available_date = ?";
+                $stmt = $conn->prepare($sql);
+                //通过绑定变量防止SQL注入
+                //$j_timestring = "%" . $j_timestring . "%";
+                $stmt->bind_param("s", $j_timestring);
+                $stmt->execute();
+                $stmt->bind_result($id);
+                $i=0;
+                while ($stmt->fetch()) {
+                    $row[$i]['id'] = $id;
+                    $i++;
+                }
+                /*$sql = "SELECT * FROM paper WHERE available_date = '$j_timestring'";
                 $res = $conn->query($sql);
-                $row = $res->fetch_all(MYSQLI_ASSOC);
+                $row = $res->fetch_all(MYSQLI_ASSOC);*/
                 if($row == NULL){
                     echo "PC404";
                 }
@@ -149,9 +216,21 @@
                 break;
 
             case "keywords"://用户按照关键字，即数据库中keyword表的keyword查询
-                $sql = "SELECT * FROM keyword WHERE keyword LIKE '%$usr_input%'";
+                $sql = "SELECT pid FROM keyword WHERE keyword LIKE ?";
+                $stmt = $conn->prepare($sql);
+                //通过绑定变量防止SQL注入
+                $usr_input = "%" . $usr_input . "%";
+                $stmt->bind_param("s", $usr_input);
+                $stmt->execute();
+                $stmt->bind_result($pid);
+                $i=0;
+                while ($stmt->fetch()) {
+                    $row[$i]['pid'] = $pid;
+                    $i++;
+                }
+                /*$sql = "SELECT * FROM keyword WHERE keyword LIKE '%$usr_input%'";
                 $res = $conn->query($sql);
-                $row = $res->fetch_all(MYSQLI_ASSOC);
+                $row = $res->fetch_all(MYSQLI_ASSOC);*/
                 if($row == NULL){
                     echo "PC404";
                 }

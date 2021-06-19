@@ -10,12 +10,24 @@
     }
 	else
     {
-		$selsql="SELECT username,password FROM user WHERE username = '$username' AND password=PASSWORD('$password')";
-        $selres=$conn->query($selsql);
-        $selrow=$selres->fetch_object();
+		//$selsql="SELECT username,password FROM user WHERE username = '$username' AND password=PASSWORD('$password')";
+        $sql = "SELECT username,password FROM user WHERE username = ? AND password=PASSWORD(?)";
+        $stmt = $conn->prepare($sql);
+        //通过绑定变量防止SQL注入
+        $stmt->bind_param("ss", $username,$password);
+        $stmt->execute();
+        $stmt->bind_result($urname,$passwd);
+        while ($stmt->fetch()) {
+            $selrow['username'] = $urname;
+            $selrow['$password'] = $passwd;
+        }
+
+        /*$selres=$conn->query($selsql);
+        $selrow=$selres->fetch_object();*/
+
         ini_set('session.gc_maxlifetime', 3600);
         $expire = ini_get('session.gc_maxlifetime');
-        if ($selrow->username == $username){
+        if ($selrow['username'] == $username){
 			if (empty($_COOKIE['PHPSESSID'])) {
  				session_set_cookie_params($expire);
  				session_start();
@@ -24,7 +36,7 @@
  				session_start();
  				setcookie('PHPSESSID', session_id(), time() + $expire);
  			}
- 			if(isset($_SESSION['username']) && ($_SESSION['username']==$selrow->username)){
+ 			if(isset($_SESSION['username']) && ($_SESSION['username']==$selrow['username'])){
  				exit("您已经登入了，请不要重新登入！用户名：{$_SESSION['username']}---<a href='logoff.php'>注销</a>");
  			}
             else{
@@ -36,7 +48,6 @@
         else{
 			echo "<script>alert('账号密码错误');history.back();</script>";
 		}
-
     }
     /*session_start();
     $username = $_SESSION['username'];
