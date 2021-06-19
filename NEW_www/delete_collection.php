@@ -11,13 +11,18 @@
     $uidres = $conn->query($uidsql);
     $uidrow = $uidres->fetch_object();
     $uid = $uidrow->id;
-    
+
+    mysqli_query($conn, "SET AUTOCOMMIT=0"); // 设置为不自动提交，因为MYSQL默认立即执行
+    mysqli_begin_transaction($conn);         // 开始事务定义
     $deletesql = "DELETE FROM favourite WHERE uid = '$uid' and pid = '$pid'"; //删除指定用户id和论文id的记录
-    $send = $conn->query($deletesql);   //从favourite表中删除这条记录
-    if ($send)
+    if (mysqli_query($conn, $deletesql)){
+        mysqli_commit($conn);
         echo '1';
-    else
+    }
+    else{
+        mysqli_query($conn, "ROLLBACK");     // 判断当执行失败时回滚
         echo '0';
+    }
 
     //是否需要在前端页面立即删除这条收藏记录,如需要，更新前端信息
     /*$sql = "SELECT * FROM favourite WHERE uid = '$name_encoded'";

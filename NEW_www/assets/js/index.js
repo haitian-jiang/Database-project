@@ -42,7 +42,7 @@ function literature_write_table(m){
 		num.innerHTML = i
 		//论文题目
 		paper_name = document.createElement("td");
-		paper_name.innerHTML = "<a class='l1' href = 'http://localhost/searchpaper.html?paper_name="+main_json[i].paper_name+"'>"+main_json[i].paper_name+"</a>";
+		paper_name.innerHTML = "<a class='l1' href = 'http://localhost/searchpaper.html?paper_name="+main_json[i].name+"'>"+main_json[i].name+"</a>";
 		tab1.appendChild(tr[i]);
 		tr[i].appendChild(num);
 		tr[i].appendChild(paper_name);

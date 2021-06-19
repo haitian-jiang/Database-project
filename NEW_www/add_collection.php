@@ -16,11 +16,16 @@
     $timeres = $conn->query($timesql);
     $time = $timeres->fetch_row();
     $time = $time[0];   //获取添加的时间
-    
+
+    mysqli_query($conn, "SET AUTOCOMMIT=0"); // 设置为不自动提交，因为MYSQL默认立即执行
+    mysqli_begin_transaction($conn);            // 开始事务定义
     $insertsql = "INSERT favourite (`uid`, `pid`, `collect_time`) VALUES ('$uid', '$pid', '$time')";
-    $send = $conn->query($insertsql);   //向favourite表中添加这条记录
-    if ($send)
-        echo '1';
-    else
+    if(!mysqli_query($conn, $insertsql))    {
+        mysqli_query($conn, "ROLLBACK");     // 判断当执行失败时回滚
         echo '0';
+    }
+    else {
+        mysqli_commit($conn);
+        echo '1';
+    }
 ?>
