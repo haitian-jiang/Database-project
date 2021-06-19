@@ -20,55 +20,54 @@
         $keywordarray = preg_split("/;/",$keywordsstring);  //得到一个数组，每个元素都是一个关键词
         $keywordcount = count($keywordarray);   //关键词数量
     }
-    //将属于paper表的信息插入paper表
-    $sql = "INSERT INTO `paper` (`name`, `available_date`, `jname`, `jtime`, `jplace`) VALUES (?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    //通过绑定变量防止SQL注入
-    $stmt->bind_param("sssss", $papername, $available_date, $jname, $jtime, $jplace);
-    $stmt->execute();
-    /*$add_into_paper_sql = "INSERT INTO `paper` (`name`, `available_date`, `jname`, `jtime`, `jplace`) VALUES ('$papername', '$available_date', '$jname', '$jtime', '$jplace')";
-    $add_into_paper_res = $conn->query($add_into_paper_sql);*/
 
-    //插入paper表后得到paperid
-    $sql1 = "SELECT id FROM paper WHERE name=? and available_date=? and jname=? and jtime=? and jplace=?";
-    $stmt1 = $conn->prepare($sql1);
-    //通过绑定变量防止SQL注入
-    $stmt1->bind_param("sssss", $papername, $available_date, $jname, $jtime, $jplace);
-    $stmt1->execute();
-    $stmt1->bind_result($id);
-    while ($stmt1->fetch()){
-        $row['id'] = $id;
-    }
-    $pid = $row['id'];
-
-    /*$getpaperid_sql = "SELECT id FROM paper WHERE name='$papername' and available_date='$available_date' and jname='$jname' and jtime='$jtime' and jplace='$jplace'";
-    $getpaperid_res = $conn->query($getpaperid_sql);
-    $paperid = $getpaperid_res->fetch_object();
-    $pid = $paperid->id;*/
-
-    //向author表中插入记录
-    for($i=0; $i < $authorcount; $i++){
-        $sql2 = "INSERT INTO `author` (`pid`, `name`, `institution`) VALUES (?, ?, ? )";
-        $stmt2 = $conn->prepare($sql2);
+    $db->beginTransaction();
+    try {
+        //将属于paper表的信息插入paper表
+        $sql = "INSERT INTO `paper` (`name`, `available_date`, `jname`, `jtime`, `jplace`) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $db->prepare($sql);
         //通过绑定变量防止SQL注入
-        $stmt2->bind_param("sss", $pid, $authorarray[$i], $institutionarray[$i]);
-        $stmt2->execute();
-        /*$add_into_author_sql = "INSERT INTO `author` (`pid`, `name`, `institution`) VALUES ('$pid', '$authorarray[$i]', '$institutionarray[$i]')";
-        $add_into_author_res = $conn->query($add_into_author_sql);*/
-    }
-    //向keyword表中插入记录
-    for($i=0; $i < $keywordcount; $i++){
-        $sql = "INSERT INTO `keyword` (`pid`, `keyword`) VALUES (?, ? )";
-        $stmt = $conn->prepare($sql);
-        //通过绑定变量防止SQL注入
-        $stmt->bind_param("ss", $pid, $keywordarray[$i]);
+        $stmt->bindValue(1, $papername);
+        $stmt->bindValue(2, $available_date);
+        $stmt->bindValue(3, $jname);
+        $stmt->bindValue(4, $jtime);
+        $stmt->bindValue(5, $jplace);
         $stmt->execute();
-        /*$add_into_keyword_sql = "INSERT INTO `keyword` (`pid`, `keyword`) VALUES ('$pid', '$keywordarray[$i]')";
-        $add_into_keyword_res = $conn->query($add_into_keyword_sql);*/
+
+        //插入paper表后得到paperid
+        $sql1 = "select LAST_INSERT_ID()";
+        $stmt1 = $db->prepare($sql1);
+        $stmt1->execute();
+        $result = $stmt1->fetch();
+        $pid = $result[0];
+
+        //向author表中插入记录
+        for($i=0; $i < $authorcount; $i++){
+            $sql2 = "INSERT INTO `author` (`pid`, `name`, `institution`) VALUES (?, ?, ? )";
+            $stmt2 = $db->prepare($sql2);
+            //通过绑定变量防止SQL注入
+            $stmt2->bindValue(1, $pid);
+            $stmt2->bindValue(2, $authorarray[$i]);
+            $stmt2->bindValue(3, $institutionarray[$i]);
+            $result = $stmt2->execute();
+        }
+        //向keyword表中插入记录
+        for($i=0; $i < $keywordcount; $i++){
+            $sql = "INSERT INTO `keyword` (`pid`, `keyword`) VALUES (?, ? )";
+            $stmt = $db->prepare($sql);
+            //通过绑定变量防止SQL注入
+            $stmt->bindValue(1, $pid);
+            $stmt->bindValue(2, $keywordarray[$i]);
+            $result = $stmt->execute();
+            /*$add_into_keyword_sql = "INSERT INTO `keyword` (`pid`, `keyword`) VALUES ('$pid', '$keywordarray[$i]')";
+            $add_into_keyword_res = $conn->query($add_into_keyword_sql);*/
+        }
+    } catch (Exception $e) {
+        echo "Error: " . $e->getMessage();
+        $db->rollBack();
+        exit();
     }
-    if($pid)
-        echo '1';
-    else
-        echo '0';
+    $db->commit();
+    echo '1';
 
 ?>
