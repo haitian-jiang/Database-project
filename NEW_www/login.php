@@ -10,7 +10,7 @@
     }
 	else
     {
-		$selsql="SELECT username,password FROM user WHERE username = '$username' AND password='$password'";
+		$selsql="SELECT username,password FROM user WHERE username = '$username' AND password=PASSWORD('$password')";
         $selres=$conn->query($selsql);
         $selrow=$selres->fetch_object();
         ini_set('session.gc_maxlifetime', 3600);

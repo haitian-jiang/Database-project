@@ -18,7 +18,11 @@
         $uidres = $conn->query($uidsql);
         $uidrow = $uidres->fetch_all(MYSQLI_ASSOC);
         if($uidrow == NULL){
-            $addusersql = "INSERT user (`username`, `password`) VALUES ('$name_encoded', '$passwd_encoded')";
+            $codepasswdsql = "SELECT PASSWORD('$passwd_encoded')";
+            $codepasswdres = $conn->query($codepasswdsql);
+            $codepasswd = $codepasswdres->fetch_row();
+            $codepasswd = $codepasswd[0];   //获取加密后的密码
+            $addusersql = "INSERT user (`username`, `password`) VALUES ('$name_encoded', '$codepasswd')";
             $adduserres = $conn->query($addusersql);   //向user表中添加这个用户
             if ($adduserres){
                 echo "<script> alert('注册成功');parent.location.href='login.html'; </script>";
