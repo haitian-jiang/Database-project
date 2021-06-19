@@ -168,14 +168,14 @@
     //$str = 'c3tv65iqc6h8nqb67u8hq2e1np';
     //echo base64_encode($str);
     $usr_input="work+kjbca=cwqcw-awcq_qcqc;aasc;avwev:cwce*vkb&bclebf(blb)nlnl%scc;wcdnl#ncln2/c2cqx,3c3vv`bkbbk<cwcwc>wdc3v3v.czqde'cl";
-    $usr_inputarray = preg_split('/[\s+]|[\s=]|[\s-]|[\s_]|[\s;]|[\s:]|[\s*]|[\s&]|[\s(]|[\s)]|[\s%]|[\s#]|[\s,]|[\s`]|[\s<]|[\s>]|[\s.]|[\s`&#39`]/',$usr_input);  //处理分号
+    $usr_inputarray = preg_split('/[\s+]|[\s=]|[\s-]|[\s_]|[\s;]|[\s:]|[\s*]|[\s&]|[\s(]|[\s)]|[\s%]|[\s#]|[\s,]|[\s`]|[\s<]|[\s>]|[\s.]/',$usr_input);  //处理分号
     $usr_inputcount = count($usr_inputarray);
     $proceed = $usr_inputarray[0];
     for($i=1; $i < $usr_inputcount; $i++)
     {
         $proceed = $proceed . "~" . $usr_inputarray[$i];
     }
-    echo $proceed;
+    //echo $proceed;
     /*$sql = "SELECT id FROM paper WHERE name LIKE ?";
     $stmt = $conn->prepare($sql);
     //绑定变量
@@ -206,4 +206,20 @@
         $selrow['$password'] = $passwd;
     }
     //echo $selrow['username'];
+    $papername = 'fudannb';
+    $available_date = '2021-06-19 00:00:00';
+    $jname = 'Fudan University';
+    $jtime = '2021-06-20 00:00:00';
+    $jplace = 'handanroad220';
+    $sql = "SELECT id FROM paper WHERE name=? and available_date=? and jname=? and jtime=? and jplace=?";
+    $stmt = $conn->prepare($sql);
+    //通过绑定变量防止SQL注入
+    $stmt->bind_param("sssss", $papername, $available_date, $jname, $jtime, $jplace);
+    $stmt->execute();
+    $stmt->bind_result($id);
+    while ($stmt->fetch()){
+        $row['id'] = $id;
+    }
+    $pid = $row['id'];
+    echo $pid;
 ?>

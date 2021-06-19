@@ -21,23 +21,50 @@
         $keywordcount = count($keywordarray);   //关键词数量
     }
     //将属于paper表的信息插入paper表
-    $add_into_paper_sql = "INSERT INTO `paper` (`name`, `available_date`, `jname`, `jtime`, `jplace`) VALUES ('$papername', '$available_date', '$jname', '$jtime', '$jplace')";
-    $add_into_paper_res = $conn->query($add_into_paper_sql);
+    $sql = "INSERT INTO `paper` (`name`, `available_date`, `jname`, `jtime`, `jplace`) VALUES (?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    //通过绑定变量防止SQL注入
+    $stmt->bind_param("sssss", $papername, $available_date, $jname, $jtime, $jplace);
+    $stmt->execute();
+    /*$add_into_paper_sql = "INSERT INTO `paper` (`name`, `available_date`, `jname`, `jtime`, `jplace`) VALUES ('$papername', '$available_date', '$jname', '$jtime', '$jplace')";
+    $add_into_paper_res = $conn->query($add_into_paper_sql);*/
+
     //插入paper表后得到paperid
-    $getpaperid_sql = "SELECT id FROM paper WHERE name='$papername' and available_date='$available_date' and jname='$jname' and jtime='$jtime' and jplace='$jplace'";
+    $sql1 = "SELECT id FROM paper WHERE name=? and available_date=? and jname=? and jtime=? and jplace=?";
+    $stmt1 = $conn->prepare($sql1);
+    //通过绑定变量防止SQL注入
+    $stmt1->bind_param("sssss", $papername, $available_date, $jname, $jtime, $jplace);
+    $stmt1->execute();
+    $stmt1->bind_result($id);
+    while ($stmt1->fetch()){
+        $row['id'] = $id;
+    }
+    $pid = $row['id'];
+
+    /*$getpaperid_sql = "SELECT id FROM paper WHERE name='$papername' and available_date='$available_date' and jname='$jname' and jtime='$jtime' and jplace='$jplace'";
     $getpaperid_res = $conn->query($getpaperid_sql);
     $paperid = $getpaperid_res->fetch_object();
-    $pid = $paperid->id;
+    $pid = $paperid->id;*/
 
     //向author表中插入记录
     for($i=0; $i < $authorcount; $i++){
-        $add_into_author_sql = "INSERT INTO `author` (`pid`, `name`, `institution`) VALUES ('$pid', '$authorarray[$i]', '$institutionarray[$i]')";
-        $add_into_author_res = $conn->query($add_into_author_sql);
+        $sql2 = "INSERT INTO `author` (`pid`, `name`, `institution`) VALUES (?, ?, ? )";
+        $stmt2 = $conn->prepare($sql2);
+        //通过绑定变量防止SQL注入
+        $stmt2->bind_param("sss", $pid, $authorarray[$i], $institutionarray[$i]);
+        $stmt2->execute();
+        /*$add_into_author_sql = "INSERT INTO `author` (`pid`, `name`, `institution`) VALUES ('$pid', '$authorarray[$i]', '$institutionarray[$i]')";
+        $add_into_author_res = $conn->query($add_into_author_sql);*/
     }
     //向keyword表中插入记录
     for($i=0; $i < $keywordcount; $i++){
-        $add_into_keyword_sql = "INSERT INTO `keyword` (`pid`, `keyword`) VALUES ('$pid', '$keywordarray[$i]')";
-        $add_into_keyword_res = $conn->query($add_into_keyword_sql);
+        $sql = "INSERT INTO `keyword` (`pid`, `keyword`) VALUES (?, ? )";
+        $stmt = $conn->prepare($sql);
+        //通过绑定变量防止SQL注入
+        $stmt->bind_param("ss", $pid, $keywordarray[$i]);
+        $stmt->execute();
+        /*$add_into_keyword_sql = "INSERT INTO `keyword` (`pid`, `keyword`) VALUES ('$pid', '$keywordarray[$i]')";
+        $add_into_keyword_res = $conn->query($add_into_keyword_sql);*/
     }
     if($pid)
         echo '1';
