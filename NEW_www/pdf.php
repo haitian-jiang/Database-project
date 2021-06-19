@@ -25,7 +25,8 @@ if ( ($_FILES["upload_file"]["type"] == "application/pdf")
             move_uploaded_file($_FILES["upload_file"]["tmp_name"], "upload/" . $_FILES["upload_file"]["name"]);
         }
 
-        $pyPATH = "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\python.exe";
+        // $pyPATH = "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\python.exe";
+        $pyPATH = "C:\Users\jht20\AppData\Local\Programs\Python\Python37\python.exe";
         exec($pyPATH . " PDFparser.py " . $_FILES["upload_file"]["name"], $output);
         // $metadata = json_decode($output[0], true);
         // echo json_encode($metadata);

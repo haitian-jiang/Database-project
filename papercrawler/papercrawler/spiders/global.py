@@ -4,17 +4,19 @@ import json
 from scrapy import Spider
 from scrapy.http import Request
 from papercrawler.items import PapercrawlerItem
+from papercrawler.settings import PAPER_TOPIC, JOURNAL_HEAD, JOURNAL_TAIL, VOLUMN_START, VOLUMN_END
 
 
 class GlobalSpider(Spider):
     name = "global"
     allowed_domains = ["sciencedirect.com"]
-    start_urls = [f"https://www.sciencedirect.com/browse/journals-and-books?page={i}&contentType=JL&subject=computer-science" for i in range(3, 4)]
+    start_urls = [f"https://www.sciencedirect.com/browse/journals-and-books?page={i}&contentType=JL&subject={PAPER_TOPIC}" \
+                 for i in range(JOURNAL_HEAD, JOURNAL_TAIL + 1)]
 
     def parse(self, response):
         journals = response.xpath("//a[@class='anchor js-publication-title']//@href").getall()
         for journal in journals:
-            for volume in range(20, 21):
+            for volume in range(VOLUMN_START, VOLUMN_END + 1):
                 yield Request(url=f"https://www.sciencedirect.com{journal}/vol/{volume}/suppl/C", callback=self.parse_journal)
             
     def parse_journal(self, response):
