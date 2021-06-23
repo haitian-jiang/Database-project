@@ -28,7 +28,7 @@ function refresh_main_table(){
 */
 
 function deviceprop1_show_total(){
-	document.getElementById('deviceprop1_total').innerHTML = '总共查询到<b>' + main_json[0].total_num +'</b>文献';
+	document.getElementById('deviceprop1_total').innerHTML = '您总过收藏过<b>' + main_json[0].total_num +'</b>篇文献';
 }
 
 var tab =document.getElementById("deviceprop1_main_table");
