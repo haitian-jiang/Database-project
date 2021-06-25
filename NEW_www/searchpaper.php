@@ -18,7 +18,7 @@
         $usr_input = $proceed;*/
         switch ($method) {
             case "paper_name"://用户按照论文名称，即数据库中paper表的name查询
-                $sql = "SELECT id FROM paper WHERE name LIKE ?";
+                $sql = "SELECT DISTINCT id FROM paper WHERE name LIKE ?";
                 $stmt = $conn->prepare($sql);
                 //通过绑定变量防止SQL注入
                 $usr_input = "%" . $usr_input . "%";
@@ -57,7 +57,7 @@
                 break;
 
             case "author"://用户按照论文作者，即数据库中author表的name查询
-                $sql = "SELECT pid FROM author WHERE name LIKE ?";
+                $sql = "SELECT DISTINCT pid FROM author WHERE name LIKE ?";
                 $stmt = $conn->prepare($sql);
                 //通过绑定变量防止SQL注入
                 $usr_input = "%" . $usr_input . "%";
@@ -96,7 +96,7 @@
                 break;
 
             case "institution"://用户按照单位，即数据库中author表的institution查询
-                $sql = "SELECT pid FROM author WHERE institution LIKE ?";
+                $sql = "SELECT DISTINCT pid FROM author WHERE institution LIKE ?";
                 $stmt = $conn->prepare($sql);
                 //通过绑定变量防止SQL注入
                 $usr_input = "%" . $usr_input . "%";
@@ -135,7 +135,7 @@
                 break;
 
             case "journal"://用户按照期刊,会议，即数据库中paper表的jname查询
-                $sql = "SELECT id FROM paper WHERE jname LIKE ?";
+                $sql = "SELECT DISTINCT id FROM paper WHERE jname LIKE ?";
                 $stmt = $conn->prepare($sql);
                 //通过绑定变量防止SQL注入
                 $usr_input = "%" . $usr_input . "%";
@@ -177,8 +177,14 @@
                 $j_time = $usr_input;
                 $j_timestring = substr($j_time,0,4) . "-" . substr($j_time,4,2) . "-" . substr($j_time,6,2) . " " . '00:00:00';
                 //格式化处理完成
-                $sql = "SELECT id FROM paper WHERE available_date = ?";
+                $sql = "SELECT DISTINCT id FROM paper WHERE available_date LIKE ?";
                 $stmt = $conn->prepare($sql);
+                if(strlen($usr_input)==4){
+                    $j_timestring = substr($j_timestring,0,4) . "%";
+                }
+                if(strlen($usr_input)==6){
+                    $j_timestring = substr($j_timestring,0,7) . "%";
+                }
                 //通过绑定变量防止SQL注入
                 //$j_timestring = "%" . $j_timestring . "%";
                 $stmt->bind_param("s", $j_timestring);
@@ -197,7 +203,7 @@
                 }
                 else{
                     $paper_amount = count($row);
-                    for ($i=0; $i < $paper_amount; $i++) { 
+                    for ($i=0; $i < $paper_amount; $i++) {
                         $pid = $row[$i]['id'];
                         $paperinfosql = "SELECT name,available_date,jname FROM paper WHERE id = '$pid'";
                         $paperinfores = $conn->query($paperinfosql);
@@ -216,7 +222,7 @@
                 break;
 
             case "keywords"://用户按照关键字，即数据库中keyword表的keyword查询
-                $sql = "SELECT pid FROM keyword WHERE keyword LIKE ?";
+                $sql = "SELECT DISTINCT pid FROM keyword WHERE keyword LIKE ?";
                 $stmt = $conn->prepare($sql);
                 //通过绑定变量防止SQL注入
                 $usr_input = "%" . $usr_input . "%";
